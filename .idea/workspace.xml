@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="" />
+    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/part1-Basic-Prototype/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/part1-Basic-Prototype/main.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,12 +12,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="120">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#14#71#0" expanded="true" />
               </folding>
@@ -23,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/boltdb/main.go">
+      <file leaf-file-name="Block.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/Block.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
+            <state relative-caret-position="363">
+              <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -47,6 +49,9 @@
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -56,8 +61,8 @@
         <option value="$PROJECT_DIR$/part1-Basic-Prototype/BLC/Blockchain.go" />
         <option value="$PROJECT_DIR$/part1-Basic-Prototype/BLC/ProofOfWork.go" />
         <option value="$PROJECT_DIR$/part1-Basic-Prototype/BLC/Block.go" />
-        <option value="$PROJECT_DIR$/part1-Basic-Prototype/main.go" />
         <option value="$PROJECT_DIR$/boltdb/main.go" />
+        <option value="$PROJECT_DIR$/part1-Basic-Prototype/main.go" />
       </list>
     </option>
   </component>
@@ -71,10 +76,13 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="539" />
-    <option name="y" value="143" />
-    <option name="width" value="1052" />
-    <option name="height" value="806" />
+    <option name="x" value="274" />
+    <option name="y" value="24" />
+    <option name="width" value="1156" />
+    <option name="height" value="1026" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -91,11 +99,6 @@
             </path>
             <path>
               <item name="blockchain" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blockchain" type="462c0819:PsiDirectoryNode" />
-              <item name="boltdb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blockchain" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -107,7 +110,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -123,7 +126,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go (1)">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="blockchain" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -148,33 +151,32 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go (1)" />
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Build.go build main.go (1)" />
       </list>
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="539" y="143" width="1052" height="806" extended-state="0" />
-    <editor active="true" />
+    <frame x="274" y="24" width="1156" height="1026" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19486693" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18402155" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.37021858" />
-      <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.329235" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.393972" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,27 +186,29 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BLC/Block.go">
+    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="555">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#14#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://$PROJECT_DIR$/boltdb/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="885">
+          <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Block.go" />
+    <entry file="file://$PROJECT_DIR$/main.go" />
     <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/utils.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding>
-            <element signature="e#13#58#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -232,26 +236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/Block.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="94" column="38" lean-forward="true" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
-          <folding>
-            <element signature="e#13#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#14#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../github.com/boltdb/bolt/db.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -259,24 +243,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/boltdb/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="54" column="43" lean-forward="true" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../github.com/boltdb/bolt/tx.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
-          <caret line="97" column="43" lean-forward="true" selection-start-line="97" selection-start-column="11" selection-end-line="97" selection-end-column="43" />
+          <caret line="106" column="45" selection-start-line="106" selection-start-column="45" selection-end-line="106" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../github.com/boltdb/bolt/bucket.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="284" column="31" lean-forward="true" selection-start-line="284" selection-start-column="24" selection-end-line="284" selection-end-column="31" />
+        <state relative-caret-position="234">
+          <caret line="265" column="17" selection-start-line="265" selection-start-column="17" selection-end-line="265" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/boltdb/main.go">
+    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/Block.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
+        <state relative-caret-position="363">
+          <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#14#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
