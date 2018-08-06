@@ -79,8 +79,8 @@ func (block *Block) String() string {
 		"\n------------------------------"+
 			"\nABlock's Info:\n\t"+
 			"Height:%d,\n\t"+
-			"PreHash:%v,\n\t"+
-			"Data: %v,\n\t"+
+			"PreHash:%x,\n\t"+
+			"Data: %s,\n\t"+
 			"Timestamp: %s,\n\t"+
 			"Hash: %x,\n\t"+
 			"Nonce: %v\n\t",

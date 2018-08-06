@@ -9,7 +9,7 @@ import (
 
 //0000 0000 0000 0000 1001 0001 0000 .... 0001
 // 256位Hash里面前面至少要有16个零
-const targetBit = 16
+const targetBit = 8
 
 type ProofOfWork struct {
 	Block  *Block   // 当前要验证的区块

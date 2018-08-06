@@ -7,9 +7,7 @@ import (
 	"log"
 )
 
-type CLI struct {
-	BC *Blockchain
-}
+type CLI struct {}
 
 func (cli *CLI) Run() {
 
@@ -23,7 +21,7 @@ func (cli *CLI) Run() {
 
 	//关联命令参数
 	flagAddBlockData := addblockCmd.String("data", "chenysh", "交易数据")
-	//flagCreateBlockchainWithCmd := createblockchainCmd.String("data", "GenesisBlock.......", "创世区块数据")
+	flagCreateBlockchainWithCmd := createblockchainCmd.String("data", "GenesisBlock.......", "创世区块数据")
 
 	switch os.Args[1] {
 	case "addblock":
@@ -56,11 +54,16 @@ func (cli *CLI) Run() {
 	}
 
 	if createblockchainCmd.Parsed() {
+		if *flagCreateBlockchainWithCmd == "" {
+			printUsage()
+			os.Exit(1)
+		}
 
+		cli.createGenesisBlockchain(*flagCreateBlockchainWithCmd)
 	}
 
 	if printchainCmd.Parsed() {
-
+		cli.printchain()
 	}
 
 }
@@ -75,15 +78,31 @@ func printUsage() {
 
 
 func (cli *CLI) addBlock(data string) {
-	fmt.Println(data)
+	if DBExists() == false {
+		fmt.Println("数据不存在.......")
+		os.Exit(1)
+	}
+
+	blockchain := BlockchainObject()
+
+	blockchain.AddBlockToBlockchain(data)
+
 }
 
 func (cli *CLI) printchain() {
-	fmt.Println("printchain")
+	if DBExists() == false {
+		fmt.Println("数据不存在.......")
+		os.Exit(1)
+	}
+
+	blockchain := BlockchainObject()
+
+	blockchain.Printchain()
+
 }
 
 func (cli *CLI) createGenesisBlockchain(data string) {
-	fmt.Println(data)
+	CreateBlockchainWithGenesisBlock(data)
 }
 
 //判断参数是否有效
