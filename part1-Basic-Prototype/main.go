@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/boltdb/bolt"
 	"log"
-	"blockchain/part1-Basic-Prototype/BLC"
 	"fmt"
+	"go-BlockChain/part1-Basic-Prototype/BLC"
 )
 
 func main() {
