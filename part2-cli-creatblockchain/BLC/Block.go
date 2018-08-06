@@ -9,18 +9,12 @@ import (
 )
 
 type Block struct {
-	//1. 区块高度
-	Height int64
-	//2. 上一个区块HASH
-	PrevBlockHash []byte
-	//3. 交易数据
-	Data []byte
-	//4. 时间戳
-	Timestamp int64
-	//5. Hash
-	Hash []byte
-	//6. Nonce
-	Nonce int64
+	Height        int64  //1. 区块高度
+	PrevBlockHash []byte //2. 上一个区块HASH
+	Data          []byte //3. 交易数据
+	Timestamp     int64  //4. 时间戳
+	Hash          []byte //5. Hash
+	Nonce         int64  //6. Nonce
 }
 
 func NewBlock(data string, height int64, preBlockHash []byte) *Block {
@@ -32,48 +26,22 @@ func NewBlock(data string, height int64, preBlockHash []byte) *Block {
 		nil,
 		0}
 
-	// 调用工作量证明的方法并且返回有效的Hash和Nonce
+	//创建工作量证明结构体
 	pow := NewProofOfWork(block)
 
-	// 挖矿验证
+	//调用工作量证明的方法并且返回有效的Hash和Nonce（挖矿）
 	hash, nonce := pow.Run()
 	block.Hash = hash[:]
 	block.Nonce = nonce
 
-	//block.SetHash()
-
 	return block
-
 }
-
-//func (block *Block) SetHash() {
-//	//1.转换Height  256进制
-//	heightBytes := IntToHex(block.Height)
-//
-//	//fmt.Printf("heightBytes: %v %T\n", heightBytes, heightBytes)
-//
-//	//2.转换时间戳  转成二进制再转[]byte
-//	timeString := strconv.FormatInt(block.Timestamp, 2)
-//	//fmt.Println(block.Timestamp)
-//	//fmt.Printf("timeString: %v %T\n", timeString, timeString)
-//
-//	timeBytes := []byte(timeString)
-//	//fmt.Printf("timeBytes: %v %T\n", timeBytes, timeBytes)
-//	//  3. 拼接所有属性
-//	blockBytes := bytes.Join([][]byte{heightBytes, block.PrevBlockHash, block.Data, timeBytes}, []byte{})
-//
-//	//fmt.Printf("blockBytes: %v %T\n", blockBytes, blockBytes)
-//	// 4. 生成Hash
-//	hash := sha256.Sum256(blockBytes)
-//	//fmt.Printf("hash: %v %T\n", hash, hash)
-//
-//	block.Hash = hash[:]
-//}
 
 func CreateGenesisBlock(data string) *Block {
 	return NewBlock(data, 1, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
 }
 
+//打印格式
 func (block *Block) String() string {
 	return fmt.Sprintf(
 		"\n------------------------------"+
@@ -91,7 +59,7 @@ func (block *Block) String() string {
 		block.Hash, block.Nonce)
 }
 
-// 将区块序列化成字节数组
+// 序列化：将区块序列化成字节数组
 func (block *Block) Serialize() []byte {
 
 	var result bytes.Buffer
@@ -103,10 +71,11 @@ func (block *Block) Serialize() []byte {
 		log.Panic(err)
 	}
 
+	fmt.Println(result.Bytes())
 	return result.Bytes()
 }
 
-// 反序列化
+// 反序列化：将字节数组反序列化为block对象
 func DeserializeBlock(blockBytes []byte) *Block {
 
 	var block Block

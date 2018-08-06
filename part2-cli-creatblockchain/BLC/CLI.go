@@ -25,6 +25,7 @@ func (cli *CLI) Run() {
 
 	switch os.Args[1] {
 	case "addblock":
+		//解析参数
 		err := addblockCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
@@ -44,6 +45,7 @@ func (cli *CLI) Run() {
 		os.Exit(1)
 	}
 
+	//Parsed() -》是否执行过Parse()
 	if addblockCmd.Parsed() {
 		if *flagAddBlockData == "" {
 			printUsage()

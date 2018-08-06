@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/blockchain.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,16 +16,27 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-              <folding>
-                <element signature="e#14#71#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -33,34 +44,10 @@
       <file leaf-file-name="utils.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="52" lean-forward="true" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+            <state relative-caret-position="300">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#13#58#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProofOfWork.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
-              <caret line="94" column="21" lean-forward="true" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
-              <folding>
-                <element signature="e#13#68#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="77" column="20" lean-forward="true" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
-              <folding>
-                <element signature="e#13#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,10 +56,22 @@
       <file leaf-file-name="Block.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="120" column="1" lean-forward="true" selection-start-line="120" selection-start-column="1" selection-end-line="120" selection-end-column="1" />
+            <state relative-caret-position="99">
+              <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
               <folding>
                 <element signature="e#13#70#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+              <folding>
+                <element signature="e#13#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,8 +80,8 @@
       <file leaf-file-name="CLI.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="93" column="35" lean-forward="true" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
+            <state relative-caret-position="301">
+              <caret line="27" column="32" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="32" />
               <folding>
                 <element signature="e#13#51#0" expanded="true" />
               </folding>
@@ -104,6 +103,8 @@
       <find>IsValid</find>
       <find>string</find>
       <find>DBExists</find>
+      <find>NewBlock</find>
+      <find>inttohex</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
@@ -124,9 +125,10 @@
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/BlockchainIterator.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go" />
-        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go" />
+        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/main.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go" />
+        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go" />
       </list>
     </option>
   </component>
@@ -140,9 +142,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="808" />
+    <option name="x" value="580" />
     <option name="y" value="23" />
-    <option name="width" value="1108" />
+    <option name="width" value="1202" />
     <option name="height" value="1026" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -164,11 +166,6 @@
             <path>
               <item name="go-BlockChain" type="b2602c69:ProjectViewProjectNode" />
               <item name="go-BlockChain" type="462c0819:PsiDirectoryNode" />
-              <item name="part1-Basic-Prototype" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="go-BlockChain" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go-BlockChain" type="462c0819:PsiDirectoryNode" />
               <item name="part2-cli-creatblockchain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -176,6 +173,10 @@
               <item name="go-BlockChain" type="462c0819:PsiDirectoryNode" />
               <item name="part2-cli-creatblockchain" type="462c0819:PsiDirectoryNode" />
               <item name="BLC" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go-BlockChain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -185,6 +186,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SearchEverywhereHistoryKey" value="IntToHex&#9;null&#9;null" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -248,18 +250,19 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="808" y="23" width="1108" height="1026" extended-state="0" />
+    <frame x="580" y="23" width="1202" height="1026" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20168856" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18534483" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="right" id="Database" order="0" weight="0.32869297" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.30678147" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.30678147" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -268,7 +271,6 @@
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -302,9 +304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-          <folding>
-            <element signature="e#14#71#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -344,20 +343,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BLC/Block.go" />
     <entry file="file://$PROJECT_DIR$/main.go" />
-    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/math/big/int.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="423" column="43" lean-forward="true" selection-start-line="423" selection-start-column="12" selection-end-line="423" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/ProofOfWork.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -444,60 +429,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go">
+    <entry file="file://$PROJECT_DIR$/part1-Basic-Prototype/BLC/utils.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="77" column="20" lean-forward="true" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
-          <folding>
-            <element signature="e#13#81#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go">
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/crypto/sha256/sha256.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="120" column="1" lean-forward="true" selection-start-line="120" selection-start-column="1" selection-end-line="120" selection-end-column="1" />
-          <folding>
-            <element signature="e#13#70#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="504">
+          <caret line="266" column="23" selection-start-line="266" selection-start-column="17" selection-end-line="266" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/main.go">
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/builtin/builtin.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#14#71#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="199">
+          <caret line="87" column="5" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/encoding/binary/binary.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3497">
+          <caret line="339" column="42" lean-forward="true" selection-start-line="339" selection-start-column="42" selection-end-line="339" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/math/big/int.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="425" column="14" selection-start-line="425" selection-start-column="14" selection-end-line="425" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="52" lean-forward="true" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+        <state relative-caret-position="300">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#13#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="94" column="21" lean-forward="true" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+        <state relative-caret-position="188">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
           <folding>
             <element signature="e#13#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/bytes/buffer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+          <folding>
+            <element signature="e#13#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding>
+            <element signature="e#13#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="93" column="35" lean-forward="true" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
+        <state relative-caret-position="301">
+          <caret line="27" column="32" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="32" />
           <folding>
             <element signature="e#13#51#0" expanded="true" />
           </folding>
