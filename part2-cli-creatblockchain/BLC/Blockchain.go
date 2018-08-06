@@ -4,6 +4,12 @@ type Blockchain struct {
 	Blocks []*Block
 }
 
+// 数据库名字
+const dbName  = "blockchain.db"
+
+// 表的名字
+const blockTableName  = "blocks"
+
 //1. 创建带有创世区块的区块链
 func CreatBlockchainWithGenesisBlock() *Blockchain {
 	// 创建创世区块

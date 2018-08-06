@@ -81,10 +81,14 @@ func (block *Block) String() string {
 			"Height:%d,\n\t"+
 			"PreHash:%v,\n\t"+
 			"Data: %v,\n\t"+
-			"Timestamp: %d,\n\t"+
+			"Timestamp: %s,\n\t"+
 			"Hash: %x,\n\t"+
 			"Nonce: %v\n\t",
-		block.Height, block.PrevBlockHash, block.Data, block.Timestamp, block.Hash, block.Nonce)
+		block.Height,
+		block.PrevBlockHash,
+		block.Data,
+		time.Unix(block.Timestamp, 0).Format("2006-01-02 03:04:05 PM"),
+		block.Hash, block.Nonce)
 }
 
 // 将区块序列化成字节数组
