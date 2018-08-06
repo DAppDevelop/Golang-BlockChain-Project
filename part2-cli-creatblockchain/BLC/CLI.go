@@ -87,6 +87,8 @@ func (cli *CLI) addBlock(data string) {
 
 	blockchain := BlockchainObject()
 
+	defer blockchain.DB.Close()
+
 	blockchain.AddBlockToBlockchain(data)
 
 }
@@ -98,6 +100,8 @@ func (cli *CLI) printchain() {
 	}
 
 	blockchain := BlockchainObject()
+
+	defer blockchain.DB.Close()
 
 	blockchain.Printchain()
 
