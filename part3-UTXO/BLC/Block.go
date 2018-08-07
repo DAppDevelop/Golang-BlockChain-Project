@@ -71,6 +71,7 @@ func (block *Block) Serialize() []byte {
 		log.Panic(err)
 	}
 
+	fmt.Println(result.Bytes())
 	return result.Bytes()
 }
 
