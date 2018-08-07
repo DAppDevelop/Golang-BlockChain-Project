@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="" />
+    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -46,17 +50,17 @@
       <file leaf-file-name="Transaction_TXInput.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction_TXOutput.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Transaction_TXOutput.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="30" lean-forward="true" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+            <state relative-caret-position="75">
+              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -101,9 +105,9 @@
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/ProofOfWork.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Block.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/CLI.go" />
-        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go" />
-        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go" />
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go" />
+        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go" />
+        <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go" />
       </list>
     </option>
   </component>
@@ -548,24 +552,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go">
+    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="75">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXInput.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction_TXOutput.go">
+    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Transaction.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="30" lean-forward="true" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
