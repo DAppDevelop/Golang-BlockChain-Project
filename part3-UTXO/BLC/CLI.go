@@ -18,7 +18,7 @@ func (cli *CLI) Run() {
 	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
 	sendBlockCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printchainCmd := flag.NewFlagSet("print", flag.ExitOnError)
-
+	getbalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
 
 	//关联命令参数
 	//sendBlockCmd
@@ -28,6 +28,9 @@ func (cli *CLI) Run() {
 
 	//createblockchainCmd 创世区块地址
 	flagCoinbase := createblockchainCmd.String("address", "", "创世区块数据的地址")
+
+	//getbalanceCmd
+	flagGetbalanceWithAddress := getbalanceCmd.String("address", "", "要查询某一个账号的余额.......")
 
 	switch os.Args[1] {
 	case "send":
@@ -43,6 +46,11 @@ func (cli *CLI) Run() {
 		}
 	case "print":
 		err := printchainCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "getbalance":
+		err := getbalanceCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -62,11 +70,11 @@ func (cli *CLI) Run() {
 		to := JSONToArray(*flagTo)
 		amount := JSONToArray(*flagAmount)
 		cli.send(from,to,amount)
-
 	}
 
 	if createblockchainCmd.Parsed() {
 		if *flagCoinbase == "" {
+			fmt.Println("地址不能为空....")
 			printUsage()
 			os.Exit(1)
 		}
@@ -78,14 +86,26 @@ func (cli *CLI) Run() {
 		cli.printchain()
 	}
 
+	if getbalanceCmd.Parsed() {
+		if *flagGetbalanceWithAddress == "" {
+			fmt.Println("地址不能为空....")
+			printUsage()
+			os.Exit(1)
+		}
+
+		cli.getBalance(*flagGetbalanceWithAddress)
+	}
+
+
 }
 
 //输出使用指南
 func printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("\tcreate -address -- 创世区块交易数据.")
+	fmt.Println("\tcreate -address --创世区块交易数据.")
 	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT --交易明细")
-	fmt.Println("\tprint -- 输出区块信息.")
+	fmt.Println("\tprint --输出区块信息.")
+	fmt.Println("\tgetbalance -address --获取address有多少币.")
 }
 
 func (cli *CLI) createGenesisBlockchain(address string) {
@@ -116,6 +136,12 @@ func (cli *CLI) printchain() {
 	defer blockchain.DB.Close()
 
 	blockchain.Printchain()
+}
+
+func (cli *CLI) getBalance (address string)  {
+
+	fmt.Println("地址：" + address)
+
 }
 
 //判断参数是否有效

@@ -10,5 +10,5 @@ type TXInput struct {
 
 
 func (tx *TXInput)String() string {
-	return fmt.Sprintf("TxHash: %x, Vout: %v, ScriptSig: %v", tx.TxHash, tx.Vout, tx.ScriptSig)
+	return fmt.Sprintf("\n\t\t\tTxHash: %x, Vout: %v, ScriptSig: %v", tx.TxHash, tx.Vout, tx.ScriptSig)
 }

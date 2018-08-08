@@ -9,5 +9,5 @@ type TXOutput struct {
 
 
 func (tx *TXOutput)String() string {
-	return fmt.Sprintf("Value: %d, ScriptPubKey: %s", tx.Value, tx.ScriptPubKey)
+	return fmt.Sprintf("\n\t\t\tValue: %d, ScriptPubKey: %s", tx.Value, tx.ScriptPubKey)
 }

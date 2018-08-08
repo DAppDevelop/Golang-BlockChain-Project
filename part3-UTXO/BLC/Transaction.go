@@ -6,6 +6,7 @@ import (
 	"log"
 	"crypto/sha256"
 	"fmt"
+	"encoding/hex"
 )
 
 type Transaction struct {
@@ -29,9 +30,33 @@ func NewCoinbaseTransacion(address string) *Transaction  {
 
 }
 
-
-
 //2. 创建普通交易产生的Transaction
+func NewSimpleTransation(from string, to string, amount int) *Transaction  {
+	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["4"]'
+	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
+	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
+
+
+	var txInputs []*TXInput
+	var txOutputs []*TXOutput
+
+	bytes, _ := hex.DecodeString("181c2fcbbc318e2bbf4aecd903603df4e53887242598f80b7adc890f131cbd4b")
+	txInput := &TXInput{bytes, 0, from}
+
+	txInputs = append(txInputs, txInput)
+
+	txOutput := &TXOutput{int64(amount), to}
+	txOutputs = append(txOutputs, txOutput)
+
+	txOutput = &TXOutput{int64(10 - amount), from}
+	txOutputs = append(txOutputs, txOutput)
+
+	tx := &Transaction{[]byte{}, txInputs, txOutputs}
+
+	tx.HashTransaction()
+
+	return tx
+}
 
 
 
@@ -68,5 +93,5 @@ func (tx *Transaction)String() string {
 
 	outString := bytes.Join(outStrings, []byte{})
 
-	return fmt.Sprintf("\tTxHash: %x, \n\t\tVins: %v, \n\t\tVout: %v", tx.TxHash, string(vinString), string(outString))
+	return fmt.Sprintf("\tTxHash: %x, \n\t\tVins: %v, \n\t\tVout: %v\n\t\t", tx.TxHash, string(vinString), string(outString))
 }

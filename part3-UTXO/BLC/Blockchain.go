@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"strconv"
 )
 
 type Blockchain struct {
@@ -74,10 +75,17 @@ func CreateBlockchainWithGenesisBlock(address string) {
 func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string) {
 
 	//1. 通过相关算法建立Transaction数组
+
+	//转换amount为int
+	amountInt, _ := strconv.Atoi(amount[0])
+
+	tx := NewSimpleTransation(from[0], to[0], amountInt)
+	println(tx)
+
 	var txs []*Transaction
+	txs = append(txs, tx)
 
 	var block *Block
-
 	//获取最新的block
 	blockchain.DB.View(func(tx *bolt.Tx) error {
 
