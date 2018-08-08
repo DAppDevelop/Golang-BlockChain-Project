@@ -9,6 +9,10 @@ type TXInput struct {
 }
 
 //格式化输出
-func (tx *TXInput)String() string {
+func (tx *TXInput) String() string {
 	return fmt.Sprintf("\n\t\t\tTxHash: %x, Vout: %v, ScriptSig: %v", tx.TxHash, tx.Vout, tx.ScriptSig)
+}
+
+func (txInput *TXInput) UnlockWithAddress(address string) bool {
+	return txInput.ScriptSig == address
 }

@@ -7,6 +7,7 @@ import (
 	"log"
 	"math/big"
 	"strconv"
+	"encoding/hex"
 )
 
 type Blockchain struct {
@@ -160,8 +161,70 @@ func (blc *Blockchain) AddBlockToBlockchain(txs []*Transaction) {
 
 }
 
-func UnSpentTransationsWithAdress(address string) []*Transaction  {
+func (blc *Blockchain) UnSpent(address string) []*TXOutput {
+	/*
+	1.遍历数据库，获取每个block ---> Txs
+	2.遍历所有交易：
+		Inputs -- 记录为已花费
+		Outputs -- 每个output
+	 */
+
+	var unSpentTxOut [] *TXOutput
+	spentTxOutputMap := make(map[string][]int)
+
+	it := blc.Iterator()
+
+	for {
+
+		//1、获取每个block
+		block := it.Next()
+		//2、遍历block的Txs
+		for _, tx := range block.Txs {
+			//遍历每个tx：txID/Vins/Vouts
+			//遍历所有TxInput
+			if !tx.IsCoinBaseTransaction() { //tx不是CoinBase交易，遍历TxInput
+				for _, txInput := range tx.Vins {
+					if txInput.UnlockWithAddress(address) {
+						key := hex.EncodeToString(txInput.TxHash)
+						spentTxOutputMap[key] = append(spentTxOutputMap[key], txInput.Vout)
+					}
+				}
+			}
+
+			//遍历所有的TxOutput
+
+			for _, txOutput := range tx.Vouts {
+				if txOutput.UnlockWithAddress(address) {
+					if len(spentTxOutputMap) != 0 {
+
+					} else {
+						//如果长度为0，整没有花费，output无需判断
+						unSpentTxOut = append(unSpentTxOut, txOutput)
+					}
+				}
+			}
+		}
+
+		//3、判断退出
+		hashInt := new(big.Int)
+		hashInt.SetBytes(block.PrevBlockHash)
+		if big.NewInt(0).Cmp(hashInt) == 0 {
+			break
+		}
+
+	}
+
 	return nil
+}
+
+func (blc *Blockchain) GetBalance(address string) int64 {
+	txOutputs := blc.UnSpent(address)
+	var total int64
+
+	for _, txOutput := range txOutputs {
+		total += txOutput.Value
+	}
+	return total
 }
 
 // 遍历输出所有区块的信息

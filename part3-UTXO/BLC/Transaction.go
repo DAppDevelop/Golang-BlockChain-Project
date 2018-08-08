@@ -58,8 +58,6 @@ func NewSimpleTransation(from string, to string, amount int) *Transaction  {
 	return tx
 }
 
-
-
 //将Transaction 序列化再进行 hash
 func (tx *Transaction) HashTransaction()  {
 
@@ -75,6 +73,10 @@ func (tx *Transaction) HashTransaction()  {
 	hash := sha256.Sum256(result.Bytes())
 	fmt.Printf("transationHash: %x", hash)
 	tx.TxHash = hash[:]
+}
+
+func (tx *Transaction)IsCoinBaseTransaction() bool  {
+	return len(tx.Vins[0].TxHash) == 0 && tx.Vins[0].Vout == -1
 }
 
 //格式化输出

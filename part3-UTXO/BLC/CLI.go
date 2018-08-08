@@ -13,14 +13,15 @@ func (cli *CLI) Run() {
 
 	isValidArgs()
 
-	//配置./moac xxx 中xxx的命令参数
+	//配置./moac xxx 中xxx的命令
 	//e.g. ./moac addblock
+	//./bc  命令 -参数名 参数
 	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
 	sendBlockCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printchainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 	getbalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
 
-	//关联命令参数
+	//将命令关联参数
 	//sendBlockCmd
 	flagFrom := sendBlockCmd.String("from", "", "转账源地址")
 	flagTo := sendBlockCmd.String("to", "", "转账目的地址")
@@ -139,8 +140,18 @@ func (cli *CLI) printchain() {
 }
 
 func (cli *CLI) getBalance (address string)  {
+	if DBExists() == false {
+		fmt.Println("数据不存在.......")
+		os.Exit(1)
+	}
 
-	fmt.Println("地址：" + address)
+	blockchain := BlockchainObject()
+
+	defer blockchain.DB.Close()
+
+	total := blockchain.GetBalance(address)
+	fmt.Printf("%s的余额：%d", address, total)
+
 	//txs := UnSpentTransationsWithAdress(address)
 
 
