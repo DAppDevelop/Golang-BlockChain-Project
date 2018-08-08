@@ -77,6 +77,7 @@ func (tx *Transaction) HashTransaction()  {
 	tx.TxHash = hash[:]
 }
 
+//格式化输出
 func (tx *Transaction)String() string {
 	var vinStrings [][]byte
 	for _, vin := range tx.Vins {

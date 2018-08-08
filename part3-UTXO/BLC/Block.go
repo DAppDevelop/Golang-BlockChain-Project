@@ -19,13 +19,7 @@ type Block struct {
 }
 
 func NewBlock(txs []*Transaction, height int64, preBlockHash []byte) *Block {
-	block := &Block{
-		height,
-		preBlockHash,
-		txs,
-		time.Now().Unix(),
-		nil,
-		0}
+	block := &Block{height, preBlockHash, txs, time.Now().Unix(), nil, 0}
 
 	//创建工作量证明结构体
 	pow := NewProofOfWork(block)
@@ -38,12 +32,13 @@ func NewBlock(txs []*Transaction, height int64, preBlockHash []byte) *Block {
 	return block
 }
 
+// 创建创世区块
 func CreateGenesisBlock(txs []*Transaction) *Block {
 	return NewBlock(txs, 1, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
 }
 
-// 需要将Txs转换成[]byte
-func (block *Block) HashTransactions() []byte  {
+// 需要将Txs转换成[]byte(256)
+func (block *Block) HashTransactions() []byte {
 	var txHashes [][]byte
 	var txHash [32]byte
 

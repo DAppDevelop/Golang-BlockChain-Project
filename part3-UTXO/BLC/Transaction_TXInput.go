@@ -8,7 +8,7 @@ type TXInput struct {
 	ScriptSig string // 3. 用户名花费的是谁的钱(解锁脚本,包含数字签名)
 }
 
-
+//格式化输出
 func (tx *TXInput)String() string {
 	return fmt.Sprintf("\n\t\t\tTxHash: %x, Vout: %v, ScriptSig: %v", tx.TxHash, tx.Vout, tx.ScriptSig)
 }
