@@ -55,7 +55,7 @@ func (proofOfWork *ProofOfWork) Run() ([]byte, int64) {
 
 		//3. 判断hash有效性，如果满足条件，跳出循环
 		if proofOfWork.target.Cmp(&hashInt) == 1 {
-			fmt.Printf("hash: %x\n", hash) //hash: 00ea9e3743900b6086acbb86390457f72fb3a4908609bd900536064f8e89448d
+			fmt.Printf("\nhash: %x\n", hash) //hash: 00ea9e3743900b6086acbb86390457f72fb3a4908609bd900536064f8e89448d
 			break
 		}
 

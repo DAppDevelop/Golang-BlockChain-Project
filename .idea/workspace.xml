@@ -4,10 +4,8 @@
     <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/blockchain.db" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/blockchain.db" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,9 +33,11 @@
       <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
+            <state relative-caret-position="375">
+              <caret line="163" column="14" lean-forward="true" selection-start-line="163" selection-start-column="14" selection-end-line="163" selection-end-column="14" />
               <folding>
+                <element signature="n#!!block;n#CreateBlockchainWithGenesisBlock#0" />
+                <element signature="e#1139#1144#0" />
                 <element signature="n#!!block;n#AddBlockToBlockchain#0" />
                 <element signature="n#!!block;n#Printchain#0" />
                 <element signature="n#!!block;n#Iterator#0" />
@@ -50,21 +50,29 @@
       <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-56">
-              <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+            <state relative-caret-position="127">
+              <caret line="35" column="74" lean-forward="true" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="74" />
               <folding>
                 <element signature="e#13#79#0" expanded="true" />
-                <element signature="n#!!block;n#HashTransaction#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction_TXInput.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProofOfWork.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="58" column="17" lean-forward="true" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Transaction_TXInput.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="67" lean-forward="true" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
+            <state relative-caret-position="195">
+              <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -78,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CLI.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CLI.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
+            <state relative-caret-position="332">
+              <caret line="137" column="27" lean-forward="true" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -113,7 +121,11 @@
       <find>join</find>
       <find>createGenesisBlockchain</find>
       <find>MineNewBlock</find>
+      <find>世区块数据的地址</find>
+      <find>hash:</find>
+      <find>transationHash:</find>
       <find>address</find>
+      <find>UnSpentTransationsWithAdress</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
@@ -143,13 +155,13 @@
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/utils.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/main.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Block.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" />
       </list>
     </option>
   </component>
@@ -207,7 +219,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="SearchEverywhereHistoryKey" value="IntToHex&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="mine&#9;null&#9;null&#10;IntToHex&#9;null&#9;null" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -272,8 +284,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="340" y="23" width="1202" height="1026" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22068965" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22068965" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="0" weight="0.32869297" />
@@ -282,7 +295,7 @@
       <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.54359525" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.2335845" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -637,44 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="75" column="42" lean-forward="true" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!block;n#AddBlockToBlockchain#0" />
-            <element signature="n#!!block;n#Printchain#0" />
-            <element signature="n#!!block;n#Iterator#0" />
-            <element signature="n#!!block;n#DBExists#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-56">
-          <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
-          <folding>
-            <element signature="e#13#79#0" expanded="true" />
-            <element signature="n#!!block;n#HashTransaction#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -684,8 +659,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="67" lean-forward="true" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
+        <state relative-caret-position="195">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="58" column="17" lean-forward="true" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="35" column="74" lean-forward="true" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="74" />
+          <folding>
+            <element signature="e#13#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="163" column="14" lean-forward="true" selection-start-line="163" selection-start-column="14" selection-end-line="163" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!block;n#CreateBlockchainWithGenesisBlock#0" />
+            <element signature="e#1139#1144#0" />
+            <element signature="n#!!block;n#AddBlockToBlockchain#0" />
+            <element signature="n#!!block;n#Printchain#0" />
+            <element signature="n#!!block;n#Iterator#0" />
+            <element signature="n#!!block;n#DBExists#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="137" column="27" lean-forward="true" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
         </state>
       </provider>
     </entry>

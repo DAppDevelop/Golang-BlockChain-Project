@@ -141,6 +141,8 @@ func (cli *CLI) printchain() {
 func (cli *CLI) getBalance (address string)  {
 
 	fmt.Println("地址：" + address)
+	//txs := UnSpentTransationsWithAdress(address)
+
 
 }
 

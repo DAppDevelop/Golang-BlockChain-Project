@@ -32,23 +32,23 @@ func NewCoinbaseTransacion(address string) *Transaction  {
 
 //2. 创建普通交易产生的Transaction
 func NewSimpleTransation(from string, to string, amount int) *Transaction  {
-	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["4"]'
-	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
+	//go run main.go send -from '["yancey"]' -to '["alice"]' -amount '["4"]'
+	//go run main.go send -from '["yancey"]' -to '["bob"]' -amount '["2"]'
 	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
 
 
 	var txInputs []*TXInput
 	var txOutputs []*TXOutput
 
-	bytes, _ := hex.DecodeString("181c2fcbbc318e2bbf4aecd903603df4e53887242598f80b7adc890f131cbd4b")
-	txInput := &TXInput{bytes, 0, from}
+	bytes, _ := hex.DecodeString("f17274dee2f737220d65797be16a8153c8fe4f36f7f7ede65b120f853dc95605")
+	txInput := &TXInput{bytes, 1, from}
 
 	txInputs = append(txInputs, txInput)
 
 	txOutput := &TXOutput{int64(amount), to}
 	txOutputs = append(txOutputs, txOutput)
 
-	txOutput = &TXOutput{int64(10 - amount), from}
+	txOutput = &TXOutput{int64(6 - amount), from}
 	txOutputs = append(txOutputs, txOutput)
 
 	tx := &Transaction{[]byte{}, txInputs, txOutputs}

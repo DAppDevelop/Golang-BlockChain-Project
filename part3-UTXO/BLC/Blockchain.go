@@ -80,7 +80,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 	amountInt, _ := strconv.Atoi(amount[0])
 
 	tx := NewSimpleTransation(from[0], to[0], amountInt)
-	println(tx)
+	//fmt.Println(tx)
 
 	var txs []*Transaction
 	txs = append(txs, tx)
@@ -158,6 +158,10 @@ func (blc *Blockchain) AddBlockToBlockchain(txs []*Transaction) {
 		log.Panic(err)
 	}
 
+}
+
+func UnSpentTransationsWithAdress(address string) []*Transaction  {
+	return nil
 }
 
 // 遍历输出所有区块的信息
