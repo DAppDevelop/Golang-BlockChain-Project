@@ -20,7 +20,7 @@ const dbName = "blockchain.db"
 const blockTableName = "blocks"
 
 //1. 创建带有创世区块的区块链
-func CreateBlockchainWithGenesisBlock(data string) {
+func CreateBlockchainWithGenesisBlock(address string) {
 
 	//判断数据库是否已经存
 	if DBExists() {
@@ -36,8 +36,6 @@ func CreateBlockchainWithGenesisBlock(data string) {
 		log.Panic(err)
 	}
 
-
-
 	err = db.Update(func(tx *bolt.Tx) error {
 
 		//创建表
@@ -48,8 +46,10 @@ func CreateBlockchainWithGenesisBlock(data string) {
 		}
 
 		if b != nil {
+			// 创建了一个coinbase Transaction
+			txCoinbase := NewCoinbaseTransacion(address)
 			// 创建创世区块
-			genesisBlock := CreateGenesisBlock(data)
+			genesisBlock := CreateGenesisBlock([]*Transaction{txCoinbase})
 
 			//序列号block并存入数据库
 			err := b.Put([]byte(genesisBlock.Hash), []byte(genesisBlock.Serialize()))
@@ -70,8 +70,51 @@ func CreateBlockchainWithGenesisBlock(data string) {
 	})
 }
 
+// 挖矿产生区块
+func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string) {
+	//1. 通过相关算法建立Transaction数组
+
+	var txs []*Transaction
+
+	var block *Block
+
+	blockchain.DB.View(func(tx *bolt.Tx) error {
+
+		b := tx.Bucket([]byte(blockTableName))
+		if b != nil {
+
+			hash := b.Get([]byte("l"))
+
+			blockBytes := b.Get(hash)
+
+			block = DeserializeBlock(blockBytes)
+
+		}
+
+		return nil
+	})
+
+	//2. 建立新的区块
+	block = NewBlock(txs, block.Height+1, block.Hash)
+
+	//将新区块存储到数据库
+	blockchain.DB.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blockTableName))
+		if b != nil {
+
+			b.Put(block.Hash, block.Serialize())
+
+			b.Put([]byte("l"), block.Hash)
+
+			blockchain.Tip = block.Hash
+
+		}
+		return nil
+	})
+}
+
 // 增加区块到区块链里面
-func (blc *Blockchain) AddBlockToBlockchain(data string) {
+func (blc *Blockchain) AddBlockToBlockchain(txs []*Transaction) {
 
 	err := blc.DB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(blockTableName))
@@ -83,7 +126,7 @@ func (blc *Blockchain) AddBlockToBlockchain(data string) {
 			block := DeserializeBlock(blockbyte)
 
 			// 创建新区块
-			newBlock := NewBlock(data, block.Height + 1 , block.Hash)
+			newBlock := NewBlock(txs, block.Height+1, block.Hash)
 
 			//序列号block并存入数据库
 			err := b.Put(newBlock.Hash, newBlock.Serialize())
@@ -144,13 +187,12 @@ func DBExists() bool {
 }
 
 // 返回Blockchain对象
-func BlockchainObject() *Blockchain  {
+func BlockchainObject() *Blockchain {
 	//因为已经知道数据库的名字，所以只要取出最新区块hash，既可以返回blockchain对象
 	db, err := bolt.Open(dbName, 0600, nil)
 	if err != nil {
 		log.Panic(err)
 	}
-
 
 	var tip []byte
 

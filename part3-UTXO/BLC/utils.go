@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"log"
+	"encoding/json"
 )
 
 // 将int64转换为[]uint8 字节数组(十进制转为256进制？）
@@ -20,4 +21,16 @@ func IntToHex(num int64) []byte {
 	}
 
 	return buff.Bytes()// [0 0 0 0 0 0 1 0]
+}
+
+
+// 标准的JSON字符串转数组
+func JSONToArray(jsonString string) []string {
+
+	//json 到 []string
+	var sArr []string
+	if err := json.Unmarshal([]byte(jsonString), &sArr); err != nil {
+		log.Panic(err)
+	}
+	return sArr
 }

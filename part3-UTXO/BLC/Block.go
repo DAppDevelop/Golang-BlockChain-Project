@@ -6,22 +6,23 @@ import (
 	"bytes"
 	"encoding/gob"
 	"log"
+	"crypto/sha256"
 )
 
 type Block struct {
-	Height        int64  //1. 区块高度
-	PrevBlockHash []byte //2. 上一个区块HASH
-	Data          []byte //3. 交易数据
-	Timestamp     int64  //4. 时间戳
-	Hash          []byte //5. Hash
-	Nonce         int64  //6. Nonce
+	Height        int64          //1. 区块高度
+	PrevBlockHash []byte         //2. 上一个区块HASH
+	Txs           []*Transaction //3. 交易数据
+	Timestamp     int64          //4. 时间戳
+	Hash          []byte         //5. Hash
+	Nonce         int64          //6. Nonce
 }
 
-func NewBlock(data string, height int64, preBlockHash []byte) *Block {
+func NewBlock(txs []*Transaction, height int64, preBlockHash []byte) *Block {
 	block := &Block{
 		height,
 		preBlockHash,
-		[]byte(data),
+		txs,
 		time.Now().Unix(),
 		nil,
 		0}
@@ -37,8 +38,22 @@ func NewBlock(data string, height int64, preBlockHash []byte) *Block {
 	return block
 }
 
-func CreateGenesisBlock(data string) *Block {
-	return NewBlock(data, 1, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+func CreateGenesisBlock(txs []*Transaction) *Block {
+	return NewBlock(txs, 1, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+}
+
+// 需要将Txs转换成[]byte
+func (block *Block) HashTransactions() []byte  {
+	var txHashes [][]byte
+	var txHash [32]byte
+
+	for _, tx := range block.Txs {
+		txHashes = append(txHashes, tx.TxHash)
+	}
+	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
+
+	return txHash[:]
+
 }
 
 //打印格式
@@ -48,13 +63,13 @@ func (block *Block) String() string {
 			"\nABlock's Info:\n\t"+
 			"Height:%d,\n\t"+
 			"PreHash:%x,\n\t"+
-			"Data: %s,\n\t"+
+			"Txs: %v,\n\t"+
 			"Timestamp: %s,\n\t"+
 			"Hash: %x,\n\t"+
 			"Nonce: %v\n\t",
 		block.Height,
 		block.PrevBlockHash,
-		block.Data,
+		block.Txs,
 		time.Unix(block.Timestamp, 0).Format("2006-01-02 03:04:05 PM"),
 		block.Hash, block.Nonce)
 }
@@ -71,7 +86,7 @@ func (block *Block) Serialize() []byte {
 		log.Panic(err)
 	}
 
-	fmt.Println(result.Bytes())
+	//fmt.Println(result.Bytes())
 	return result.Bytes()
 }
 

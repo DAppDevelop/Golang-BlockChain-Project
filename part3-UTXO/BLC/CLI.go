@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-type CLI struct {}
+type CLI struct{}
 
 func (cli *CLI) Run() {
 
@@ -15,27 +15,32 @@ func (cli *CLI) Run() {
 
 	//配置./moac xxx 中xxx的命令参数
 	//e.g. ./moac addblock
-	addblockCmd := flag.NewFlagSet("addblock", flag.ExitOnError)
-	createblockchainCmd := flag.NewFlagSet("createblockchain", flag.ExitOnError)
-	printchainCmd := flag.NewFlagSet("printchain", flag.ExitOnError)
+	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
+	sendBlockCmd := flag.NewFlagSet("send", flag.ExitOnError)
+	printchainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 
 	//关联命令参数
-	flagAddBlockData := addblockCmd.String("data", "chenysh", "交易数据")
-	flagCreateBlockchainWithCmd := createblockchainCmd.String("data", "GenesisBlock.......", "创世区块数据")
+	//sendBlockCmd
+	flagFrom := sendBlockCmd.String("from", "", "转账源地址")
+	flagTo := sendBlockCmd.String("to", "", "转账目的地址")
+	flagAmount := sendBlockCmd.String("amount", "", "转账金额")
+
+	//createblockchainCmd 创世区块地址
+	flagCoinbase := createblockchainCmd.String("address", "", "创世区块数据的地址")
 
 	switch os.Args[1] {
-	case "addblock":
+	case "send":
 		//解析参数
-		err := addblockCmd.Parse(os.Args[2:])
+		err := sendBlockCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
-	case "createblockchain":
+	case "create":
 		err := createblockchainCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
-	case "printchain":
+	case "print":
 		err := printchainCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
@@ -46,22 +51,26 @@ func (cli *CLI) Run() {
 	}
 
 	//Parsed() -》是否执行过Parse()
-	if addblockCmd.Parsed() {
-		if *flagAddBlockData == "" {
+	if sendBlockCmd.Parsed() {
+		if *flagFrom == "" || *flagTo == "" || *flagAmount == "" {
 			printUsage()
 			os.Exit(1)
 		}
 
-		cli.addBlock(*flagAddBlockData)
+		from := JSONToArray(*flagFrom)
+		to := JSONToArray(*flagTo)
+		amount := JSONToArray(*flagAmount)
+		cli.send(from,to,amount)
+
 	}
 
 	if createblockchainCmd.Parsed() {
-		if *flagCreateBlockchainWithCmd == "" {
+		if *flagCoinbase == "" {
 			printUsage()
 			os.Exit(1)
 		}
 
-		cli.createGenesisBlockchain(*flagCreateBlockchainWithCmd)
+		cli.createGenesisBlockchain(*flagCoinbase)
 	}
 
 	if printchainCmd.Parsed() {
@@ -73,24 +82,25 @@ func (cli *CLI) Run() {
 //输出使用指南
 func printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("\tcreateblockchain -data -- 创世区块交易数据.")
-	fmt.Println("\taddblock -data DATA -- 交易数据.")
-	fmt.Println("\tprintchain -- 输出区块信息.")
+	fmt.Println("\tcreate -address -- 创世区块交易数据.")
+	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT --交易明细")
+	fmt.Println("\tprint -- 输出区块信息.")
 }
 
+func (cli *CLI) createGenesisBlockchain(address string) {
+	CreateBlockchainWithGenesisBlock(address)
+}
 
-func (cli *CLI) addBlock(data string) {
+func (cli *CLI) send(from []string, to []string, amount []string) {
 	if DBExists() == false {
 		fmt.Println("数据不存在.......")
 		os.Exit(1)
 	}
 
 	blockchain := BlockchainObject()
-
 	defer blockchain.DB.Close()
 
-	blockchain.AddBlockToBlockchain(data)
-
+	blockchain.MineNewBlock(from, to, amount)
 }
 
 func (cli *CLI) printchain() {
@@ -104,11 +114,6 @@ func (cli *CLI) printchain() {
 	defer blockchain.DB.Close()
 
 	blockchain.Printchain()
-
-}
-
-func (cli *CLI) createGenesisBlockchain(data string) {
-	CreateBlockchainWithGenesisBlock(data)
 }
 
 //判断参数是否有效

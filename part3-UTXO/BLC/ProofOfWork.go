@@ -72,7 +72,7 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	data := bytes.Join(
 		[][]byte{ //[]byte的切片
 			pow.Block.PrevBlockHash,
-			pow.Block.Data,
+			pow.Block.HashTransactions(),
 			IntToHex(pow.Block.Timestamp),
 			IntToHex(int64(targetBit)),
 			IntToHex(int64(nonce)),
