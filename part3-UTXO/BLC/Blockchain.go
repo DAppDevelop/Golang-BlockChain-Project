@@ -72,12 +72,13 @@ func CreateBlockchainWithGenesisBlock(address string) {
 
 // 挖矿产生区块
 func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string) {
-	//1. 通过相关算法建立Transaction数组
 
+	//1. 通过相关算法建立Transaction数组
 	var txs []*Transaction
 
 	var block *Block
 
+	//获取最新的block
 	blockchain.DB.View(func(tx *bolt.Tx) error {
 
 		b := tx.Bucket([]byte(blockTableName))
@@ -88,13 +89,12 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 			blockBytes := b.Get(hash)
 
 			block = DeserializeBlock(blockBytes)
-
 		}
 
 		return nil
 	})
 
-	//2. 建立新的区块
+	//2. 根据最新的block的信息,建立新的区块
 	block = NewBlock(txs, block.Height+1, block.Hash)
 
 	//将新区块存储到数据库

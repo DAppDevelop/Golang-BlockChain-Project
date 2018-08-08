@@ -53,5 +53,20 @@ func (tx *Transaction) HashTransaction()  {
 }
 
 func (tx *Transaction)String() string {
-	return fmt.Sprintf("TxHash: %x, Vins: %v, Vout: %v", tx.TxHash, tx.Vins, tx.Vouts)
+	var vinStrings [][]byte
+	for _, vin := range tx.Vins {
+		vinString := fmt.Sprint(vin)
+		vinStrings = append(vinStrings, []byte(vinString))
+	}
+	vinString := bytes.Join(vinStrings, []byte{})
+
+	var outStrings [][]byte
+	for _, out := range tx.Vouts {
+		outString := fmt.Sprint(out)
+		outStrings = append(outStrings, []byte(outString))
+	}
+
+	outString := bytes.Join(outStrings, []byte{})
+
+	return fmt.Sprintf("\tTxHash: %x, \n\t\tVins: %v, \n\t\tVout: %v", tx.TxHash, string(vinString), string(outString))
 }

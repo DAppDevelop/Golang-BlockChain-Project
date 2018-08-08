@@ -19,6 +19,7 @@ func (cli *CLI) Run() {
 	sendBlockCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printchainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 
+
 	//关联命令参数
 	//sendBlockCmd
 	flagFrom := sendBlockCmd.String("from", "", "转账源地址")
@@ -92,6 +93,7 @@ func (cli *CLI) createGenesisBlockchain(address string) {
 }
 
 func (cli *CLI) send(from []string, to []string, amount []string) {
+	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
 	if DBExists() == false {
 		fmt.Println("数据不存在.......")
 		os.Exit(1)
