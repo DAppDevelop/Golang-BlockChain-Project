@@ -20,8 +20,8 @@ func (cli *CLI) Run() {
 	./bc printchain
 		-->执行打印的功能
 
-	 ./bc send -from '["wangergou"]' -to '["lixiaohua"]' -amount '["4"]'
-	./bc send -from '["wangergou","rose"]' -to '["lixiaohua","jace"]' -amount '["4","5"]'
+	 ./bc send -from '["yancey"]' -to '["alice"]' -amount '["11"]'
+	./bc send -from '["yancey","alice"]' -to '["bob","cici"]' -amount '["4","5"]'
 
 
 	 */

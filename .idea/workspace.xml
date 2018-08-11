@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Block.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Block.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/BlockchainIterator.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/BlockchainIterator.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part3-UTXO/blockchain.db" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,47 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CLI.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CLI.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CLI_createblockchain.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_createblockchain.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="11" selection-start-column="11" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CLI_getbalance.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="11" selection-start-column="11" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CLI_printchain.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_printchain.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="11" selection-start-column="11" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CLI_send.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_send.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="241">
+              <caret line="22" column="66" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -84,23 +44,23 @@
       <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="779">
+              <caret line="269" column="32" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="32" />
               <folding>
-                <element signature="n#!!block;n#Printchain#0" />
-                <element signature="n#!!block;n#Iterator#0" />
+                <element signature="e#249#1103#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+            <state relative-caret-position="185">
+              <caret line="84" column="7" lean-forward="true" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
               <folding>
                 <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
+                <element signature="n#!!block;n#SetID#0" />
               </folding>
             </state>
           </provider>
@@ -139,6 +99,7 @@
       <find>UnSpentTransationsWithAdress</find>
       <find>HashTransaction</find>
       <find>HashTransactions</find>
+      <find>GetBalance</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
@@ -168,20 +129,20 @@
         <option value="$PROJECT_DIR$/part2-cli-creatblockchain/BLC/utils.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Block.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/main.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/utils.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Constant.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/UTXO.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/BlockchainIterator.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI_createblockchain.go" />
-        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI_printchain.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI_send.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" />
+        <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" />
       </list>
     </option>
   </component>
@@ -302,7 +263,7 @@
     <frame x="626" y="23" width="1054" height="1026" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22628458" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22628458" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="0" weight="0.32869297" />
@@ -310,7 +271,7 @@
       <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.17545748" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.34337997" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -350,7 +311,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -565,27 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -603,17 +543,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/UTXO.go">
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Block.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="135">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_send.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+          <folding>
+            <element signature="e#13#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Constant.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="12" />
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/ProofOfWork.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_printchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#13#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_createblockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+          <folding>
+            <element signature="e#13#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -624,66 +608,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Block.go">
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+        <state relative-caret-position="241">
+          <caret line="22" column="66" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXOutput.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/UTXO.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="779">
+          <caret line="269" column="32" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="32" />
           <folding>
-            <element signature="n#!!block;n#Printchain#0" />
-            <element signature="n#!!block;n#Iterator#0" />
+            <element signature="e#249#1103#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+        <state relative-caret-position="185">
+          <caret line="84" column="7" lean-forward="true" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
           <folding>
             <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
+            <element signature="n#!!block;n#SetID#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_createblockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_printchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI_send.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
         </state>
       </provider>
     </entry>
