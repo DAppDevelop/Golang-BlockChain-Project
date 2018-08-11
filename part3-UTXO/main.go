@@ -1,6 +1,8 @@
 package main
 
-import "go-BlockChain/part3-UTXO/BLC"
+import (
+	"blockchain/part3-UTXO/BLC"
+)
 
 func main() {
 	////创建命令行对象

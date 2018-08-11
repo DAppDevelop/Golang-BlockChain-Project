@@ -10,7 +10,7 @@ import (
 )
 
 type Transaction struct {
-	TxHash []byte      //1. 交易hash
+	TxID []byte      //1. 交易hash
 	Vins   []*TXInput  //2. 输入
 	Vouts  []*TXOutput //3. 输出
 }
@@ -22,11 +22,11 @@ func NewCoinbaseTransacion(address string) *Transaction  {
 	//创建创世区块交易的Vout
 	txOutput := &TXOutput{10, address}
 	//生产交易Transaction
-	txCoinbase := &Transaction{[]byte{}, []*TXInput{txInput}, []*TXOutput{txOutput}}
+	txCoinBaseTransaction := &Transaction{[]byte{}, []*TXInput{txInput}, []*TXOutput{txOutput}}
 	//设置Transaction的TxHash
-	txCoinbase.HashTransaction()
+	txCoinBaseTransaction.SetID()
 
-	return txCoinbase
+	return txCoinBaseTransaction
 
 }
 
@@ -53,13 +53,13 @@ func NewSimpleTransation(from string, to string, amount int) *Transaction  {
 
 	tx := &Transaction{[]byte{}, txInputs, txOutputs}
 
-	tx.HashTransaction()
+	tx.SetID()
 
 	return tx
 }
 
 //将Transaction 序列化再进行 hash
-func (tx *Transaction) HashTransaction()  {
+func (tx *Transaction) SetID()  {
 
 	var result bytes.Buffer
 
@@ -71,8 +71,8 @@ func (tx *Transaction) HashTransaction()  {
 	}
 
 	hash := sha256.Sum256(result.Bytes())
-	fmt.Printf("transationHash: %x", hash)
-	tx.TxHash = hash[:]
+	//fmt.Printf("transationHash: %x", hash)
+	tx.TxID = hash[:]
 }
 
 func (tx *Transaction)IsCoinBaseTransaction() bool  {
@@ -96,5 +96,5 @@ func (tx *Transaction)String() string {
 
 	outString := bytes.Join(outStrings, []byte{})
 
-	return fmt.Sprintf("\tTxHash: %x, \n\t\tVins: %v, \n\t\tVout: %v\n\t\t", tx.TxHash, string(vinString), string(outString))
+	return fmt.Sprintf("\tTxHash: %x, \n\t\tVins: %v, \n\t\tVout: %v\n\t\t", tx.TxID, string(vinString), string(outString))
 }

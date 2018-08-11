@@ -11,32 +11,47 @@ type CLI struct{}
 
 func (cli *CLI) Run() {
 
+	/*
+	Usage:
+		addblock -data DATA
+		printchain
+
+
+	./bc printchain
+		-->执行打印的功能
+
+	 ./bc send -from '["wangergou"]' -to '["lixiaohua"]' -amount '["4"]'
+	./bc send -from '["wangergou","rose"]' -to '["lixiaohua","jace"]' -amount '["4","5"]'
+
+
+	 */
+
 	isValidArgs()
 
-	//配置./moac xxx 中xxx的命令
+	//1.创建flagset命令对象
 	//e.g. ./moac addblock
 	//./bc  命令 -参数名 参数
 	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
-	sendBlockCmd := flag.NewFlagSet("send", flag.ExitOnError)
-	printchainCmd := flag.NewFlagSet("print", flag.ExitOnError)
-	getbalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
+	sendCmd := flag.NewFlagSet("send", flag.ExitOnError)
+	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
+	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
 
-	//将命令关联参数
-	//sendBlockCmd
-	flagFrom := sendBlockCmd.String("from", "", "转账源地址")
-	flagTo := sendBlockCmd.String("to", "", "转账目的地址")
-	flagAmount := sendBlockCmd.String("amount", "", "转账金额")
+	//2.设置命令后的参数对象
+	flagFrom := sendCmd.String("from", "", "转账源地址")
+	flagTo := sendCmd.String("to", "", "转账目的地址")
+	flagAmount := sendCmd.String("amount", "", "转账金额")
 
 	//createblockchainCmd 创世区块地址
-	flagCoinbase := createblockchainCmd.String("address", "", "创世区块数据的地址")
+	flagCoinbase := createblockchainCmd.String("address", "GenesisBlock", "创世区块数据的地址")
 
 	//getbalanceCmd
-	flagGetbalanceWithAddress := getbalanceCmd.String("address", "", "要查询某一个账号的余额.......")
+	flagGetbalanceWithAddress := getBalanceCmd.String("address", "", "要查询余额的账户.......")
 
+	//3.解析
 	switch os.Args[1] {
 	case "send":
 		//解析参数
-		err := sendBlockCmd.Parse(os.Args[2:])
+		err := sendCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -46,12 +61,12 @@ func (cli *CLI) Run() {
 			log.Panic(err)
 		}
 	case "print":
-		err := printchainCmd.Parse(os.Args[2:])
+		err := printChainCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
 	case "getbalance":
-		err := getbalanceCmd.Parse(os.Args[2:])
+		err := getBalanceCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -60,8 +75,9 @@ func (cli *CLI) Run() {
 		os.Exit(1)
 	}
 
+	//4.根据终端输入的命令执行对应的功能
 	//Parsed() -》是否执行过Parse()
-	if sendBlockCmd.Parsed() {
+	if sendCmd.Parsed() {
 		if *flagFrom == "" || *flagTo == "" || *flagAmount == "" {
 			printUsage()
 			os.Exit(1)
@@ -70,7 +86,7 @@ func (cli *CLI) Run() {
 		from := JSONToArray(*flagFrom)
 		to := JSONToArray(*flagTo)
 		amount := JSONToArray(*flagAmount)
-		cli.send(from,to,amount)
+		cli.send(from, to, amount)
 	}
 
 	if createblockchainCmd.Parsed() {
@@ -83,11 +99,11 @@ func (cli *CLI) Run() {
 		cli.createGenesisBlockchain(*flagCoinbase)
 	}
 
-	if printchainCmd.Parsed() {
+	if printChainCmd.Parsed() {
 		cli.printchain()
 	}
 
-	if getbalanceCmd.Parsed() {
+	if getBalanceCmd.Parsed() {
 		if *flagGetbalanceWithAddress == "" {
 			fmt.Println("地址不能为空....")
 			printUsage()
@@ -96,7 +112,6 @@ func (cli *CLI) Run() {
 
 		cli.getBalance(*flagGetbalanceWithAddress)
 	}
-
 
 }
 
@@ -107,54 +122,6 @@ func printUsage() {
 	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT --交易明细")
 	fmt.Println("\tprint --输出区块信息.")
 	fmt.Println("\tgetbalance -address --获取address有多少币.")
-}
-
-func (cli *CLI) createGenesisBlockchain(address string) {
-	CreateBlockchainWithGenesisBlock(address)
-}
-
-func (cli *CLI) send(from []string, to []string, amount []string) {
-	//go run main.go send -from '["yancey"]' -to '["a"]' -amount '["10"]'
-	if DBExists() == false {
-		fmt.Println("数据不存在.......")
-		os.Exit(1)
-	}
-
-	blockchain := BlockchainObject()
-	defer blockchain.DB.Close()
-
-	blockchain.MineNewBlock(from, to, amount)
-}
-
-func (cli *CLI) printchain() {
-	if DBExists() == false {
-		fmt.Println("数据不存在.......")
-		os.Exit(1)
-	}
-
-	blockchain := BlockchainObject()
-
-	defer blockchain.DB.Close()
-
-	blockchain.Printchain()
-}
-
-func (cli *CLI) getBalance (address string)  {
-	if DBExists() == false {
-		fmt.Println("数据不存在.......")
-		os.Exit(1)
-	}
-
-	blockchain := BlockchainObject()
-
-	defer blockchain.DB.Close()
-
-	total := blockchain.GetBalance(address)
-	fmt.Printf("%s的余额：%d", address, total)
-
-	//txs := UnSpentTransationsWithAdress(address)
-
-
 }
 
 //判断参数是否有效

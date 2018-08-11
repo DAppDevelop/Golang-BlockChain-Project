@@ -15,12 +15,6 @@ type Blockchain struct {
 	DB  *bolt.DB
 }
 
-// 数据库名字
-const dbName = "blockchain.db"
-
-// 表的名字
-const blockTableName = "blocks"
-
 //1. 创建带有创世区块的区块链
 func CreateBlockchainWithGenesisBlock(address string) {
 
@@ -33,7 +27,7 @@ func CreateBlockchainWithGenesisBlock(address string) {
 	fmt.Println("创建创世区块....")
 
 	//创建或打开数据库
-	db, err := bolt.Open(dbName, 0600, nil)
+	db, err := bolt.Open(DBName, 0600, nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -41,7 +35,7 @@ func CreateBlockchainWithGenesisBlock(address string) {
 	err = db.Update(func(tx *bolt.Tx) error {
 
 		//创建表
-		b, err := tx.CreateBucket([]byte(blockTableName))
+		b, err := tx.CreateBucket([]byte(BlockBucketName))
 
 		if err != nil {
 			log.Panic(err)
@@ -70,6 +64,12 @@ func CreateBlockchainWithGenesisBlock(address string) {
 
 		return nil
 	})
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+
 }
 
 // 挖矿产生区块
@@ -90,7 +90,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 	//获取最新的block
 	blockchain.DB.View(func(tx *bolt.Tx) error {
 
-		b := tx.Bucket([]byte(blockTableName))
+		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 
 			hash := b.Get([]byte("l"))
@@ -108,7 +108,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 	//将新区块存储到数据库
 	blockchain.DB.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blockTableName))
+		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 
 			b.Put(block.Hash, block.Serialize())
@@ -126,7 +126,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 func (blc *Blockchain) AddBlockToBlockchain(txs []*Transaction) {
 
 	err := blc.DB.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blockTableName))
+		b := tx.Bucket([]byte(BlockBucketName))
 
 		if b != nil {
 			//取到最新区块
@@ -254,7 +254,7 @@ func (blockchain *Blockchain) Iterator() *BlockchainIterator {
 
 // 判断数据库是否存在
 func DBExists() bool {
-	if _, err := os.Stat(dbName); os.IsNotExist(err) {
+	if _, err := os.Stat(DBName); os.IsNotExist(err) {
 		return false
 	}
 
@@ -264,7 +264,7 @@ func DBExists() bool {
 // 返回Blockchain对象
 func BlockchainObject() *Blockchain {
 	//因为已经知道数据库的名字，所以只要取出最新区块hash，既可以返回blockchain对象
-	db, err := bolt.Open(dbName, 0600, nil)
+	db, err := bolt.Open(DBName, 0600, nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -272,7 +272,7 @@ func BlockchainObject() *Blockchain {
 	var tip []byte
 
 	db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blockTableName))
+		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 			//取出最新区块hash
 			tip = b.Get([]byte("l"))

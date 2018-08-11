@@ -15,6 +15,7 @@ func IntToHex(num int64) []byte {
 	big endian：最高字节在地址最低位，最低字节在地址最高位，依次排列。
 	little endian：最低字节在最低位，最高字节在最高位，反序排列。
 	 */
+	//将二进制数据写入w
 	err := binary.Write(buff, binary.BigEndian, num)
 	if err != nil {
 		log.Panic(err)

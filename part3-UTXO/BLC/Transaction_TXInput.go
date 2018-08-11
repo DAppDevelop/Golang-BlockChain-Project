@@ -8,11 +8,13 @@ type TXInput struct {
 	ScriptSig string // 3. 用户名花费的是谁的钱(解锁脚本,包含数字签名)
 }
 
+
+//判断TXInput是否指定的address消费
+func (txInput *TXInput) UnlockWithAddress(address string) bool {
+	return txInput.ScriptSig == address
+}
+
 //格式化输出
 func (tx *TXInput) String() string {
 	return fmt.Sprintf("\n\t\t\tTxHash: %x, Vout: %v, ScriptSig: %v", tx.TxHash, tx.Vout, tx.ScriptSig)
-}
-
-func (txInput *TXInput) UnlockWithAddress(address string) bool {
-	return txInput.ScriptSig == address
 }
