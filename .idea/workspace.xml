@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/CLI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/CLI_getbalance.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" beforeDir="false" afterPath="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part3-UTXO/blockchain.db" beforeDir="false" />
-    </list>
+    <list default="true" id="8826b25e-1129-46a2-8fcc-98200aad04fd" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +28,7 @@
       <file leaf-file-name="CLI.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
+            <state relative-caret-position="255">
               <caret line="22" column="66" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="66" />
             </state>
           </provider>
@@ -44,7 +37,7 @@
       <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
+            <state relative-caret-position="3120">
               <caret line="269" column="32" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="32" />
               <folding>
                 <element signature="e#249#1103#0" />
@@ -53,14 +46,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="185">
-              <caret line="84" column="7" lean-forward="true" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+              <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
               <folding>
                 <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
                 <element signature="n#!!block;n#SetID#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/part4-Wallet-Signature/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+              <folding>
+                <element signature="e#14#53#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,6 +148,7 @@
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction_TXInput.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go" />
         <option value="$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go" />
+        <option value="$PROJECT_DIR$/part4-Wallet-Signature/main.go" />
       </list>
     </option>
   </component>
@@ -169,6 +175,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,19 +186,12 @@
             <path>
               <item name="blockchain" type="b2602c69:ProjectViewProjectNode" />
               <item name="blockchain" type="462c0819:PsiDirectoryNode" />
-              <item name="part3-UTXO" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blockchain" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blockchain" type="462c0819:PsiDirectoryNode" />
-              <item name="part3-UTXO" type="462c0819:PsiDirectoryNode" />
-              <item name="BLC" type="462c0819:PsiDirectoryNode" />
+              <item name="part4-Wallet-Signature" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -263,7 +263,7 @@
     <frame x="626" y="23" width="1054" height="1026" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22628458" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23023716" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="0" weight="0.32869297" />
@@ -271,7 +271,7 @@
       <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.34337997" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.34337997" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -285,21 +285,21 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.1979362" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Run" order="6" weight="0.37890205" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
+      <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.27556512" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
-      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.329235" />
       <window_info id="Favorites" order="0" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -315,13 +315,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/BLC/Blockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/part2-cli-creatblockchain/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -530,9 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-          <folding>
-            <element signature="e#14#57#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -554,9 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <element signature="e#13#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -578,9 +565,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="e#13#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -595,9 +579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-          <folding>
-            <element signature="e#13#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -610,7 +591,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/CLI.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
+        <state relative-caret-position="255">
           <caret line="22" column="66" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="66" />
         </state>
       </provider>
@@ -638,7 +619,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Blockchain.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
+        <state relative-caret-position="3120">
           <caret line="269" column="32" selection-start-line="269" selection-start-column="30" selection-end-line="269" selection-end-column="32" />
           <folding>
             <element signature="e#249#1103#0" />
@@ -649,10 +630,20 @@
     <entry file="file://$PROJECT_DIR$/part3-UTXO/BLC/Transaction.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
-          <caret line="84" column="7" lean-forward="true" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
           <folding>
             <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
             <element signature="n#!!block;n#SetID#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/part4-Wallet-Signature/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding>
+            <element signature="e#14#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
