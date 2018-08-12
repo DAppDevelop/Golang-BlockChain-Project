@@ -31,6 +31,8 @@ func (cli *CLI) Run() {
 	//1.创建flagset命令对象
 	//e.g. ./moac addblock
 	//./bc  命令 -参数名 参数
+	createWalletCmd := flag.NewFlagSet("createwallet", flag.ExitOnError)
+	getAddresslistsCmd:=flag.NewFlagSet("getaddresslists",flag.ExitOnError)
 	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
 	sendCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
@@ -67,6 +69,16 @@ func (cli *CLI) Run() {
 		}
 	case "getbalance":
 		err := getBalanceCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "createwallet":
+		err := createWalletCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "getaddresslists":
+		err := getAddresslistsCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -113,11 +125,21 @@ func (cli *CLI) Run() {
 		cli.getBalance(*flagGetbalanceWithAddress)
 	}
 
+	if createWalletCmd.Parsed() {
+		cli.CreateWallet()
+	}
+
+	if getAddresslistsCmd.Parsed() {
+		cli.GetAddressList()
+	}
+
 }
 
 //输出使用指南
 func printUsage() {
 	fmt.Println("Usage:")
+	fmt.Println("\tcreatewallet -- 创建钱包")
+	fmt.Println("\tgetaddresslists -- 获取所有的钱包地址")
 	fmt.Println("\tcreate -address --创世区块交易数据.")
 	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT --交易明细")
 	fmt.Println("\tprint --输出区块信息.")
