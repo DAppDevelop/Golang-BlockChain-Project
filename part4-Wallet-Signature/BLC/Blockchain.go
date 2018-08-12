@@ -8,6 +8,8 @@ import (
 	"math/big"
 	"strconv"
 	"encoding/hex"
+	"crypto/ecdsa"
+	"bytes"
 )
 
 type Blockchain struct {
@@ -382,4 +384,59 @@ func BlockchainObject() *Blockchain {
 	})
 
 	return &Blockchain{tip, db}
+}
+
+
+func (bc *Blockchain)SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKey)  {
+	//签名：需要1,私钥，2.要签名的交易中的部分数据
+	//1.判断要签名的tx，如果时coninbase交易直接返回
+	if tx.IsCoinBaseTransaction() {
+		return
+	}
+
+	//2.获取该tx中的Input，引用之前的transaction中的未花费的output，
+	prevTxs := make(map[string]*Transaction)
+	for _,input:=range tx.Vins{
+		txIDStr:=hex.EncodeToString(input.TxID)
+		prevTxs[txIDStr] = bc.FindTransactionByTxID(input.TxID)
+	}
+
+	//3.签名
+	tx.Sign(privateKey, prevTxs)
+}
+
+//根据交易ID，获取对应的交易对象
+func (bc *Blockchain) FindTransactionByTxID(txID []byte) *Transaction{
+	//遍历数据库，获取blcok--->transaction
+	iterator:=bc.Iterator()
+	for{
+		block :=iterator.Next()
+		for _,tx:=range block.Txs{
+			if bytes.Compare(tx.TxID, txID) ==0{
+				return tx
+			}
+		}
+
+		//判断结束循环
+		bigInt :=new(big.Int)
+		bigInt.SetBytes(block.PrevBlockHash)
+		if big.NewInt(0).Cmp(bigInt) == 0{
+			break
+		}
+	}
+
+	return &Transaction{}
+}
+
+//验证交易的数字签名
+func (bc *Blockchain) VerifityTransaction(tx *Transaction) bool{
+	//要想验证数字签名：私钥+数据 (tx的副本+之前的交易)
+	prevTxs:=make(map[string]*Transaction)
+	for _,input:=range tx.Vins{
+		prevTx:=bc.FindTransactionByTxID(input.TxID)
+		prevTxs[hex.EncodeToString(input.TxID)] = prevTx
+	}
+
+	//验证
+	return  tx.Verifity(prevTxs)
 }
