@@ -228,7 +228,10 @@ func caculate(tx *Transaction, address string, spentTxOutputMap map[string][]int
 	if !tx.IsCoinBaseTransaction() { //tx不是CoinBase交易，遍历TxInput
 		for _, txInput := range tx.Vins {
 			//txInput-->TxInput
-			if txInput.UnlockWithAddress(address) {
+			full_payload:=Base58Decode([]byte(address))
+
+			pubKeyHash:=full_payload[1:len(full_payload)-addressCheckSumLen]
+			if txInput.UnlockWithAddress(pubKeyHash) {
 				//txInput的解锁脚本(用户名) 如果和钥查询的余额的用户名相同，
 				key := hex.EncodeToString(txInput.TxID)
 				spentTxOutputMap[key] = append(spentTxOutputMap[key], txInput.Vout)

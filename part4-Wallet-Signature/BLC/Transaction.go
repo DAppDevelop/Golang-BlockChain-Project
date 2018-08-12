@@ -18,9 +18,10 @@ type Transaction struct {
 //1. 产生创世区块时的Transaction
 func NewCoinbaseTransacion(address string) *Transaction {
 	//创建创世区块交易的Vin
-	txInput := &TXInput{[]byte{}, -1, "Genesis DATA"}
+	txInput := &TXInput{[]byte{}, -1, nil, nil}
 	//创建创世区块交易的Vout
-	txOutput := &TXOutput{10, address}
+	//txOutput := &TXOutput{10, address}
+	txOutput := NewTxOutput(10,address)
 	//生产交易Transaction
 	txCoinBaseTransaction := &Transaction{[]byte{}, []*TXInput{txInput}, []*TXOutput{txOutput}}
 	//设置Transaction的TxHash
@@ -39,20 +40,24 @@ func NewSimpleTransation(from string, to string, amount int64, bc *Blockchain, t
 	//获取本次转账要使用output
 	total, spentableUTXO := bc.FindSpentableUTXOs(from, amount, txs)
 
+	//获取钱包的集合：
+	wallets := NewWallets()
+	wallet := wallets.WalletMap[from]
+
 	//2.创建Input
 	for txID, indexArray := range spentableUTXO {
 		txIDBytes, _ := hex.DecodeString(txID)
 		for _, index := range indexArray {
-			txInput := &TXInput{txIDBytes, index, from}
+			txInput := &TXInput{txIDBytes, index, nil, wallet.PublickKey}
 			txInputs = append(txInputs, txInput)
 		}
 	}
 
-	txOutput := &TXOutput{amount, to}
+	txOutput := NewTxOutput(amount, to)
 	txOutputs = append(txOutputs, txOutput)
 
 	//找零
-	txOutput2 := &TXOutput{total - amount, from}
+	txOutput2 := NewTxOutput(total-amount, from)
 	txOutputs = append(txOutputs, txOutput2)
 
 	tx := &Transaction{[]byte{}, txInputs, txOutputs}
