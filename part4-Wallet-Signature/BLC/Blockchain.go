@@ -13,8 +13,8 @@ import (
 )
 
 type Blockchain struct {
-	Tip []byte //最新的区块的Hash
-	DB  *bolt.DB
+	Tip []byte   //存储区块中最后一个块的hash值
+	DB  *bolt.DB //对应的数据库对象
 }
 
 //1. 创建带有创世区块的区块链
@@ -34,10 +34,12 @@ func CreateBlockchainWithGenesisBlock(address string) {
 		log.Panic(err)
 	}
 
+	defer db.Close()
+
 	err = db.Update(func(tx *bolt.Tx) error {
 
 		//创建表
-		b, err := tx.CreateBucket([]byte(BlockBucketName))
+		b, err := tx.CreateBucketIfNotExists([]byte(BlockBucketName))
 
 		if err != nil {
 			log.Panic(err)
@@ -50,14 +52,14 @@ func CreateBlockchainWithGenesisBlock(address string) {
 			genesisBlock := CreateGenesisBlock([]*Transaction{txCoinbase})
 
 			//序列号block并存入数据库
-			err := b.Put([]byte(genesisBlock.Hash), []byte(genesisBlock.Serialize()))
+			err := b.Put(genesisBlock.Hash, genesisBlock.Serialize())
 
 			if err != nil {
 				log.Panic(err)
 			}
 
 			//更新数据库最新区块hash
-			err = b.Put([]byte("l"), []byte(genesisBlock.Hash))
+			err = b.Put([]byte("l"), genesisBlock.Hash)
 
 			if err != nil {
 				log.Panic(err)
@@ -82,7 +84,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 	3.存入到数据库中
 	 */
 
-	//1. 通过相关算法建立Transaction数组
+	//1. 根据from/to/amount 通过相关算法建立Transaction数组
 	var txs []*Transaction
 	for i := 0; i < len(from); i++ {
 		//转换amount为int
@@ -92,10 +94,24 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 		txs = append(txs, tx)
 	}
 
-	var block *Block
-	//获取最新的block
-	err := blockchain.DB.View(func(tx *bolt.Tx) error {
+	//交易的验证：
+	for _, tx := range txs {
+		if blockchain.VerifityTransaction(tx, txs) == false {
+			log.Panic("数字签名验证失败。。。")
+		}
 
+	}
+
+	/*
+	奖励：reward：
+	创建一个CoinBase交易--->Tx
+	 */
+	coinBaseTransaction := NewCoinbaseTransacion(from[0])
+	txs = append(txs, coinBaseTransaction)
+
+	//获取最新的block
+	var block *Block
+	err := blockchain.DB.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 
@@ -105,7 +121,6 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 			block = DeserializeBlock(blockBytes)
 		}
-
 		return nil
 	})
 
@@ -113,7 +128,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 		log.Panic(err)
 	}
 
-	//2. 根据最新的block的信息,建立新的区块
+	//2. 根据数据库最新的block的信息,建立新的区块
 	block = NewBlock(txs, block.Height+1, block.Hash)
 
 	//将新区块存储到数据库
@@ -179,6 +194,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 /*
 UTXO模型：未花费的交易输出
 	Unspent Transaction TxOutput
+	txs --> 本次转账信息(查询时为nil)
  */
 func (blc *Blockchain) UnSpent(address string, txs []*Transaction) []*UTXO {
 	/*
@@ -188,6 +204,7 @@ func (blc *Blockchain) UnSpent(address string, txs []*Transaction) []*UTXO {
 		Inputs -- 记录为已花费
 		Outputs -- 每个output
 	 */
+
 	//存储未花费的TxOutput
 	var unSpentUTXOs [] *UTXO
 	//存储已经花费的信息
@@ -198,8 +215,8 @@ func (blc *Blockchain) UnSpent(address string, txs []*Transaction) []*UTXO {
 		unSpentUTXOs = caculate(txs[i], address, spentTxOutputMap, unSpentUTXOs)
 	}
 
+	//第二部分：数据库里的Trasacntion
 	it := blc.Iterator()
-
 	for {
 
 		//1、获取每个block
@@ -230,15 +247,15 @@ func caculate(tx *Transaction, address string, spentTxOutputMap map[string][]int
 	if !tx.IsCoinBaseTransaction() { //tx不是CoinBase交易，遍历TxInput
 		for _, txInput := range tx.Vins {
 			//txInput-->TxInput
-			full_payload:=Base58Decode([]byte(address))
+			full_payload := Base58Decode([]byte(address))
 
-			pubKeyHash:=full_payload[1:len(full_payload)-addressCheckSumLen]
+			pubKeyHash := full_payload[1 : len(full_payload)-addressCheckSumLen]
 			if txInput.UnlockWithAddress(pubKeyHash) {
 				//txInput的解锁脚本(用户名) 如果和钥查询的余额的用户名相同，
 				key := hex.EncodeToString(txInput.TxID)
 				spentTxOutputMap[key] = append(spentTxOutputMap[key], txInput.Vout)
 				/*
-				map[key]-->value
+				map[key]-->value TxInput.
 				map[key] -->[]int
 				 */
 			}
@@ -386,8 +403,7 @@ func BlockchainObject() *Blockchain {
 	return &Blockchain{tip, db}
 }
 
-
-func (bc *Blockchain)SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKey)  {
+func (bc *Blockchain) SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKey, txs [] *Transaction) {
 	//签名：需要1,私钥，2.要签名的交易中的部分数据
 	//1.判断要签名的tx，如果时coninbase交易直接返回
 	if tx.IsCoinBaseTransaction() {
@@ -396,31 +412,37 @@ func (bc *Blockchain)SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKe
 
 	//2.获取该tx中的Input，引用之前的transaction中的未花费的output，
 	prevTxs := make(map[string]*Transaction)
-	for _,input:=range tx.Vins{
-		txIDStr:=hex.EncodeToString(input.TxID)
-		prevTxs[txIDStr] = bc.FindTransactionByTxID(input.TxID)
+	for _, input := range tx.Vins {
+		txIDStr := hex.EncodeToString(input.TxID)
+		prevTxs[txIDStr] = bc.FindTransactionByTxID(input.TxID, txs)
 	}
 
 	//3.签名
 	tx.Sign(privateKey, prevTxs)
 }
 
-//根据交易ID，获取对应的交易对象
-func (bc *Blockchain) FindTransactionByTxID(txID []byte) *Transaction{
+//根据交易ID，获取对应的交易
+func (bc *Blockchain) FindTransactionByTxID(txID []byte, txs [] *Transaction) *Transaction {
+	//1.先查找未打包的txs
+	for _, tx := range txs {
+		if bytes.Compare(tx.TxID, txID) == 0 {
+			return tx
+		}
+	}
 	//遍历数据库，获取blcok--->transaction
-	iterator:=bc.Iterator()
-	for{
-		block :=iterator.Next()
-		for _,tx:=range block.Txs{
-			if bytes.Compare(tx.TxID, txID) ==0{
+	iterator := bc.Iterator()
+	for {
+		block := iterator.Next()
+		for _, tx := range block.Txs {
+			if bytes.Compare(tx.TxID, txID) == 0 {
 				return tx
 			}
 		}
 
 		//判断结束循环
-		bigInt :=new(big.Int)
+		bigInt := new(big.Int)
 		bigInt.SetBytes(block.PrevBlockHash)
-		if big.NewInt(0).Cmp(bigInt) == 0{
+		if big.NewInt(0).Cmp(bigInt) == 0 {
 			break
 		}
 	}
@@ -429,14 +451,15 @@ func (bc *Blockchain) FindTransactionByTxID(txID []byte) *Transaction{
 }
 
 //验证交易的数字签名
-func (bc *Blockchain) VerifityTransaction(tx *Transaction) bool{
+func (bc *Blockchain) VerifityTransaction(tx *Transaction, txs []*Transaction) bool {
 	//要想验证数字签名：私钥+数据 (tx的副本+之前的交易)
-	prevTxs:=make(map[string]*Transaction)
-	for _,input:=range tx.Vins{
-		prevTx:=bc.FindTransactionByTxID(input.TxID)
-		prevTxs[hex.EncodeToString(input.TxID)] = prevTx
+	//2.获取该tx中的Input，引用之前的transaction中的未花费的output
+	prevTxs := make(map[string]*Transaction)
+	for _, input := range tx.Vins {
+		txIDStr := hex.EncodeToString(input.TxID)
+		prevTxs[txIDStr] = bc.FindTransactionByTxID(input.TxID, txs)
 	}
 
 	//验证
-	return  tx.Verifity(prevTxs)
+	return tx.Verifity(prevTxs)
 }

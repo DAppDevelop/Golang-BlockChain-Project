@@ -30,6 +30,7 @@ func NewTxOutput(value int64,address string) *TXOutput{
 //锁定
 func (tx *TXOutput) Lock(address string){
 	full_payload := Base58Decode([]byte(address))
+	//获取公钥hash
 	tx.PubKeyHash = full_payload[1:len(full_payload)-addressCheckSumLen]
 }
 

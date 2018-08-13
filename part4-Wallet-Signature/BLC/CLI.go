@@ -20,15 +20,14 @@ func (cli *CLI) Run() {
 	./bc printchain
 		-->执行打印的功能
 
-	 ./bc send -from '["yancey"]' -to '["alice"]' -amount '["11"]'
+	./bc send -from '["yancey"]' -to '["alice"]' -amount '["11"]'
 	./bc send -from '["yancey","alice"]' -to '["bob","cici"]' -amount '["4","5"]'
-
 
 	 */
 
 	isValidArgs()
 
-	//1.创建flagset命令对象
+	//1.---------创建flagset命令对象
 	//e.g. ./moac addblock
 	//./bc  命令 -参数名 参数
 	createWalletCmd := flag.NewFlagSet("createwallet", flag.ExitOnError)
@@ -38,18 +37,18 @@ func (cli *CLI) Run() {
 	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
 
-	//2.设置命令后的参数对象
+	//2.----------设置命令后的参数对象
 	flagFrom := sendCmd.String("from", "", "转账源地址")
 	flagTo := sendCmd.String("to", "", "转账目的地址")
 	flagAmount := sendCmd.String("amount", "", "转账金额")
 
 	//createblockchainCmd 创世区块地址
-	flagCoinbase := createblockchainCmd.String("address", "GenesisBlock", "创世区块数据的地址")
+	flagCoinbase := createblockchainCmd.String("address", "", "创世区块数据的地址")
 
 	//getbalanceCmd
 	flagGetbalanceWithAddress := getBalanceCmd.String("address", "", "要查询余额的账户.......")
 
-	//3.解析
+	//3.----------解析
 	switch os.Args[1] {
 	case "send":
 		//解析参数
@@ -87,7 +86,7 @@ func (cli *CLI) Run() {
 		os.Exit(1)
 	}
 
-	//4.根据终端输入的命令执行对应的功能
+	//4.---------根据终端输入的命令执行对应的功能
 	//Parsed() -》是否执行过Parse()
 	if sendCmd.Parsed() {
 		if *flagFrom == "" || *flagTo == "" || *flagAmount == "" {

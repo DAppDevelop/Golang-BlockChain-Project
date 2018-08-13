@@ -69,16 +69,14 @@ func (proofOfWork *ProofOfWork) Run() ([]byte, int64) {
 // 数据拼接，返回字节数组
 func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	//bytes.Join 以sep为连接符，拼接[][]byte
-	data := bytes.Join(
-		[][]byte{ //[]byte的切片
-			pow.Block.PrevBlockHash,
-			pow.Block.HashTransactions(),
-			IntToHex(pow.Block.Timestamp),
-			IntToHex(int64(targetBit)),
-			IntToHex(int64(nonce)),
-			IntToHex(int64(pow.Block.Height)),
-		},
-		[]byte{},
+	data := bytes.Join([][]byte{ //[]byte的切片
+		pow.Block.PrevBlockHash,
+		pow.Block.HashTransactions(),
+		IntToHex(pow.Block.Timestamp),
+		IntToHex(int64(targetBit)),
+		IntToHex(int64(nonce)),
+		IntToHex(int64(pow.Block.Height)),
+	}, []byte{},
 	)
 
 	return data

@@ -2,11 +2,11 @@ package BLC
 
 import (
 	"time"
-	"fmt"
 	"bytes"
 	"encoding/gob"
 	"log"
 	"crypto/sha256"
+	"fmt"
 )
 
 type Block struct {
@@ -34,10 +34,11 @@ func NewBlock(txs []*Transaction, height int64, preBlockHash []byte) *Block {
 
 // 创建创世区块
 func CreateGenesisBlock(txs []*Transaction) *Block {
-	return NewBlock(txs, 1, []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	//make([]byte,32,32) --> 32*8=256
+	return NewBlock(txs, 1, make([]byte,32,32))
 }
 
-// 需要将Txs转换成[]byte(256)
+// 需要将Txs里面每个tx.TxID拼接后hash, 转换成[]byte(256)
 func (block *Block) HashTransactions() []byte {
 	var txHashes [][]byte
 	var txHash [32]byte
@@ -49,24 +50,6 @@ func (block *Block) HashTransactions() []byte {
 
 	return txHash[:]
 
-}
-
-//打印格式
-func (block *Block) String() string {
-	return fmt.Sprintf(
-		"\n------------------------------"+
-			"\nABlock's Info:\n\t"+
-			"Height:%d,\n\t"+
-			"PreHash:%x,\n\t"+
-			"Txs: %v,\n\t"+
-			"Timestamp: %s,\n\t"+
-			"Hash: %x,\n\t"+
-			"Nonce: %v\n\t",
-		block.Height,
-		block.PrevBlockHash,
-		block.Txs,
-		time.Unix(block.Timestamp, 0).Format("2006-01-02 03:04:05 PM"),
-		block.Hash, block.Nonce)
 }
 
 // 序列化：将区块序列化成字节数组
@@ -97,4 +80,22 @@ func DeserializeBlock(blockBytes []byte) *Block {
 	}
 
 	return &block
+}
+
+//打印格式
+func (block *Block) String() string {
+	return fmt.Sprintf(
+		"\n------------------------------"+
+			"\nABlock's Info:\n\t"+
+			"Height:%d,\n\t"+
+			"PreHash:%x,\n\t"+
+			"Txs: %v,\n\t"+
+			"Timestamp: %s,\n\t"+
+			"Hash: %x,\n\t"+
+			"Nonce: %v\n\t",
+		block.Height,
+		block.PrevBlockHash,
+		block.Txs,
+		time.Unix(block.Timestamp, 0).Format("2006-01-02 03:04:05 PM"),
+		block.Hash, block.Nonce)
 }
