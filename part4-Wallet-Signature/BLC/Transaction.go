@@ -212,7 +212,7 @@ func (tx *Transaction) Verifity(prevTxs map[string]*Transaction) bool {
 	}
 
 	//prevTxs
-	for _, input := range tx.Vins {
+	for _, input := range tx.Vins {//问题
 		if prevTxs[hex.EncodeToString(input.TxID)] == nil {
 			log.Panic("当前的input没有找到对应的Transaction，无法验证。。")
 		}
