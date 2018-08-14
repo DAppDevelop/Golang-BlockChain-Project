@@ -11,10 +11,8 @@ type UTXOSet struct {
 	blockChain *Blockchain
 }
 
-//提供一个重置的功能：获取blockchain中所有的未花费utxo
-
 /*
-查询block块中所有的未花费utxo：执行FindUnspentUTXOMap--->map
+	查询block块中所有的未花费utxo：执行FindUnspentUTXOMap--->map
 
  */
 
@@ -45,7 +43,7 @@ func (utxoset *UTXOSet) ResetUTXOSet() {
 				}
 			}
 
-			for txIDStr, outs := range utxoMap{
+			for txIDStr, outs := range utxoMap {
 				txID, _ := hex.DecodeString(txIDStr)
 				b.Put(txID, outs.Serialize())
 			}
@@ -57,4 +55,55 @@ func (utxoset *UTXOSet) ResetUTXOSet() {
 		log.Panic(err)
 	}
 
+}
+
+/*
+	查询对应地址的余额
+ */
+func (utxoSet *UTXOSet) GetBalance(address string) int64 {
+	var total int64
+
+	utxos := utxoSet.FindUnspentUTXOsByAddress(address)
+
+	for _, utxo := range utxos{
+		total += utxo.Output.Value
+	}
+
+	return total
+}
+
+/*
+	查询对应地址的UTXO
+ */
+func (utxoSet *UTXOSet) FindUnspentUTXOsByAddress(address string) []*UTXO {
+	var utxos []*UTXO
+
+	//读数据库
+	err := utxoSet.blockChain.DB.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(UTXOSetBucketName))
+		if b != nil {
+			//遍历UTXOSetBucketName 表
+			c := b.Cursor()
+
+			for k, v := c.First(); k != nil; k, v = c.Next() {
+				//反序列
+				txOutputs := DeserializeTxOutputs(v)
+				//遍历utxos
+				for _, utxo := range txOutputs.UTXOs{
+					//判断地址是否对应
+					if utxo.Output.UnlockWithAddress(address) {
+						utxos = append(utxos, utxo)
+					}
+				}
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return utxos
 }

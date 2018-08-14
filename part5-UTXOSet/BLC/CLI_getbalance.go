@@ -15,6 +15,8 @@ func (cli *CLI) getBalance(address string) {
 
 	defer blockchain.DB.Close()
 	//txs 传nil值，查询时没有新的交易产生
-	total := blockchain.GetBalance(address, []*Transaction{})
+	//total := blockchain.GetBalance(address, []*Transaction{})
+	utxoSet := &UTXOSet{blockchain}
+	total := utxoSet.GetBalance(address)
 	fmt.Printf("%s的余额：%d\n", address, total)
 }

@@ -27,7 +27,7 @@ func DeserializeTxOutputs(data []byte) *TxOutputs  {
 
 	decoder := gob.NewDecoder(bytes.NewReader(data))
 
-	err := decoder.Decode(outs)
+	err := decoder.Decode(&outs)
 
 	if err != nil {
 		log.Panic(err)
