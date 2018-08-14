@@ -463,3 +463,83 @@ func (bc *Blockchain) VerifityTransaction(tx *Transaction, txs []*Transaction) b
 	//验证
 	return tx.Verifity(prevTxs)
 }
+
+/*	获取所有区块中的UTXO
+	map[string]*TxOutputs  交易id-->[]*UTXO (这笔交易下的UTXO集合)
+*/
+func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
+
+	iterator := bc.Iterator()
+
+	utxoMap := make(map[string]*TxOutputs)
+
+	//已花费的input map
+	spentedMp := make(map[string][]*TXInput)
+
+	//遍历所有block
+	for {
+		block := iterator.Next()
+
+		//倒序遍历block里面的TXs
+		for i := len(block.Txs) - 1; i >= 0; i-- {
+			//收集input
+			tx := block.Txs[i]//当期的TX交易
+			txIDStr := hex.EncodeToString(tx.TxID) //TXID string
+
+			txOutputs := &TxOutputs{[]*UTXO{}}
+
+			//coinbase不处理Vins
+			if !tx.IsCoinBaseTransaction() {
+				for _, txInput := range tx.Vins {
+					txIDStr := hex.EncodeToString(txInput.TxID)
+					spentedMp[txIDStr] = append(spentedMp[txIDStr], txInput)
+				}
+			}
+
+
+			//根据spentedMp,遍历outputs 找出 UTXO
+		outputLoop:
+			for index, txOutput := range tx.Vouts {
+
+
+				if len(spentedMp) > 0 {
+					//isSpent := false
+					inputs := spentedMp[txIDStr]//如果inputs 存在, 则对应的交易里面某笔output肯定已经被消费
+					for _, input := range inputs {
+						//判断input对应的是否当期的output
+						if index == input.Vout && input.UnlockWithAddress(txOutput.PubKeyHash) {
+							//此笔output已被消费
+							//isSpent = true
+							break outputLoop
+						}
+					}
+
+					//if isSpent == false {
+						//outputs 加进utxoMap
+						utxo := &UTXO{ tx.TxID, index, txOutput}
+						txOutputs.UTXOs = append(txOutputs.UTXOs, utxo)
+					//}
+				} else  {
+					//outputs 加进utxoMap
+					utxo := &UTXO{ tx.TxID, index, txOutput}
+					txOutputs.UTXOs = append(txOutputs.UTXOs, utxo)
+				}
+			}
+
+			if len(txOutputs.UTXOs) > 0 {
+				utxoMap[txIDStr] = txOutputs
+			}
+
+
+		}
+
+		//退出条件
+		hashBigInt := new(big.Int)
+		hashBigInt.SetBytes(block.PrevBlockHash)
+		if big.NewInt(0).Cmp(hashBigInt) == 0 {
+			break
+		}
+	}
+
+	return utxoMap
+}

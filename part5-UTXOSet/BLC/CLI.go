@@ -36,6 +36,7 @@ func (cli *CLI) Run() {
 	sendCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
 	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
+	testCmd := flag.NewFlagSet("test", flag.ExitOnError)
 
 	//2.----------设置命令后的参数对象
 	flagFrom := sendCmd.String("from", "", "转账源地址")
@@ -74,6 +75,11 @@ func (cli *CLI) Run() {
 		if err := getAddresslistsCmd.Parse(os.Args[2:]); err != nil {
 			log.Panic(err)
 		}
+	case "test":
+		if err := testCmd.Parse(os.Args[2:]); err != nil {
+			log.Panic(err)
+		}
+
 	default:
 		printUsage()
 		os.Exit(1)
@@ -123,6 +129,10 @@ func (cli *CLI) Run() {
 
 	if getAddresslistsCmd.Parsed() {
 		cli.GetAddressList()
+	}
+
+	if testCmd.Parsed() {
+		cli.Test()
 	}
 
 }

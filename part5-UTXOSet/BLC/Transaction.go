@@ -165,7 +165,7 @@ func (tx *Transaction) TrimmedCopy() *Transaction {
 		outputs = append(outputs, &TXOutput{out.Value, out.PubKeyHash})
 	}
 
-	txCopy := &Transaction{tx.TxID, inputs, outputs}
+	txCopy := &Transaction{[]byte{}, inputs, outputs}
 	return txCopy
 
 }
@@ -185,7 +185,7 @@ func (tx *Transaction) SetID() {
 
 func (tx *Transaction) NewTxID() []byte {
 	txCopy := tx
-	txCopy.TxID = []byte{}
+	//txCopy.TxID = []byte{}
 	hash := sha256.Sum256(txCopy.Serialize())
 	return hash[:]
 }
