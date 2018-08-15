@@ -32,5 +32,5 @@ func (cli *CLI) send(from []string, to []string, amount []string) {
 	bc.MineNewBlock(from, to, amount)
 
 	utxoSet := &UTXOSet{bc}
-	utxoSet.ResetUTXOSet()
+	utxoSet.Update()
 }
