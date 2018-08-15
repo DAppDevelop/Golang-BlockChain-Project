@@ -25,20 +25,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UTXOSet.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/UTXOSet.go">
+      <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CLI_getbalance.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/CLI_getbalance.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="278">
+              <caret line="516" lean-forward="true" selection-start-line="516" selection-end-line="516" />
+              <folding>
+                <element signature="e#293#1153#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,26 +40,23 @@
       <file leaf-file-name="CLI_send.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BLC/CLI_send.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+            <state relative-caret-position="265">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Transaction_TXOutput.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/Transaction_TXOutput.go">
+      <file leaf-file-name="Transaction.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BLC/Transaction.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TXOutputs.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/TXOutputs.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="36" column="1" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+            <state relative-caret-position="337">
+              <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+              <folding>
+                <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
+                <element signature="n#!!block;n#IsCoinBaseTransaction#0" />
+                <element signature="n#!!block;n#SetID#0" />
+                <element signature="n#!!block;n#Serialize#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,11 +79,9 @@
       <find>GetBalance</find>
       <find>getbala</find>
       <find>unSpentUTXOs</find>
-      <find>FindSpentableUTXOs</find>
       <find>UnSpent</find>
       <find>== -1</find>
       <find>total</find>
-      <find>caculate</find>
       <find>txs</find>
       <find>VerifityTransaction</find>
       <find>FindTransactionByTxID</find>
@@ -104,6 +93,8 @@
       <find>Update</find>
       <find>DB</find>
       <find>BlockchainObject</find>
+      <find>FindSpentableUTXOs</find>
+      <find>caculate</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
@@ -116,14 +107,16 @@
         <option value="$PROJECT_DIR$/BLC/ProofOfWork.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/BLC/Constant.go" />
-        <option value="$PROJECT_DIR$/BLC/Transaction.go" />
-        <option value="$PROJECT_DIR$/BLC/Blockchain.go" />
         <option value="$PROJECT_DIR$/BLC/CLI.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_Test.go" />
         <option value="$PROJECT_DIR$/BLC/UTXO.go" />
-        <option value="$PROJECT_DIR$/BLC/UTXOSet.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_getbalance.go" />
         <option value="$PROJECT_DIR$/BLC/TXOutputs.go" />
+        <option value="$PROJECT_DIR$/BLC/Transaction.go" />
+        <option value="$PROJECT_DIR$/BLC/CLI_createWallet.go" />
+        <option value="$PROJECT_DIR$/BLC/CLI_createblockchain.go" />
+        <option value="$PROJECT_DIR$/BLC/UTXOSet.go" />
+        <option value="$PROJECT_DIR$/BLC/Blockchain.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_send.go" />
       </list>
     </option>
@@ -138,9 +131,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="690" />
+    <option name="x" value="723" />
     <option name="y" value="23" />
-    <option name="width" value="1225" />
+    <option name="width" value="1113" />
     <option name="height" value="1034" />
   </component>
   <component name="ProjectView">
@@ -205,10 +198,10 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="690" y="23" width="1225" height="1034" extended-state="0" />
+    <frame x="723" y="23" width="1113" height="1034" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24936602" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28011206" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" weight="0.32967034" />
@@ -217,25 +210,38 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.12083333" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3329776" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.42369264" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31813362" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.12083333" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32967034" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.51013875" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.12083333" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28649068" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.12083333" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Database" order="3" />
@@ -243,9 +249,8 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,20 +265,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/bytes/buffer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/math/big/int.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="431" column="68" lean-forward="true" selection-start-line="431" selection-start-column="68" selection-end-line="431" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BLC/ProofOfWork.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -429,13 +420,6 @@
     <entry file="file://$PROJECT_DIR$/BLC/Wallet.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Wallets.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/math/big/int.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -464,13 +448,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/CLI_createWallet.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BLC/BlockchainIterator.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -482,20 +459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="201" column="5" selection-start-line="201" selection-start-column="5" selection-end-line="201" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Transaction_TXInput.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/CLI_createblockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -534,19 +497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Transaction.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="187" column="28" lean-forward="true" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
-          <folding>
-            <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
-            <element signature="n#!!block;n#IsCoinBaseTransaction#0" />
-            <element signature="n#!!block;n#SetID#0" />
-            <element signature="n#!!block;n#Serialize#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../github.com/boltdb/bolt/tx.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -558,26 +508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="134" column="18" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="386" column="6" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="6" />
-          <folding>
-            <element signature="e#293#1153#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/UTXO.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
-          <folding>
-            <element signature="e#13#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -595,20 +525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/UTXOSet.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/CLI_getbalance.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BLC/Transaction_TXOutput.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -616,17 +532,106 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Transaction_TXInput.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/UTXO.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/encoding/hex/hex.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.3/libexec/src/builtin/builtin.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1625">
+          <caret line="255" column="4" selection-start-line="255" selection-start-column="4" selection-end-line="255" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/CLI_createWallet.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Wallets.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Transaction.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!block;n#NewCoinbaseTransacion#0" />
+            <element signature="n#!!block;n#IsCoinBaseTransaction#0" />
+            <element signature="n#!!block;n#SetID#0" />
+            <element signature="n#!!block;n#Serialize#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/CLI_getbalance.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/CLI_createblockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="26" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="19" selection-end-column="26" />
+          <folding>
+            <element signature="e#13#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BLC/TXOutputs.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="319">
           <caret line="36" column="1" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/UTXOSet.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="35" column="50" lean-forward="true" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="516" lean-forward="true" selection-start-line="516" selection-end-line="516" />
+          <folding>
+            <element signature="e#293#1153#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BLC/CLI_send.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+        <state relative-caret-position="265">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>

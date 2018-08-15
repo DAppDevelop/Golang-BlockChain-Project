@@ -86,10 +86,11 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 	//1. 根据from/to/amount 通过相关算法建立Transaction数组
 	var txs []*Transaction
+	utxoSet :=&UTXOSet{blockchain}
 	for i := 0; i < len(from); i++ {
 		//转换amount为int
 		amountInt, _ := strconv.Atoi(amount[i])
-		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), blockchain, txs)
+		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), utxoSet, txs)
 		//fmt.Println(tx)
 		txs = append(txs, tx)
 	}
@@ -510,7 +511,7 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 						if index == input.Vout && input.UnlockWithAddress(txOutput.PubKeyHash) {
 							//此笔output已被消费
 							//isSpent = true
-							break outputLoop
+							continue outputLoop
 						}
 					}
 

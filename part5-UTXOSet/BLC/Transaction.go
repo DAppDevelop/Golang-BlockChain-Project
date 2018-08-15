@@ -37,13 +37,14 @@ func NewCoinbaseTransacion(address string) *Transaction {
 }
 
 //2. 创建普通交易产生的Transaction
-func NewSimpleTransation(from string, to string, amount int64, bc *Blockchain, txs []*Transaction) *Transaction {
+func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet, txs []*Transaction) *Transaction {
 	//1.定义Input和Output的数组
 	var txInputs []*TXInput
 	var txOutputs []*TXOutput
 
 	//获取本次转账要使用output
-	total, spentableUTXO := bc.FindSpentableUTXOs(from, amount, txs)
+	//total, spentableUTXO := bc.FindSpentableUTXOs(from, amount, txs)
+	total, spentableUTXO := utxoSet.FindSpentableUTXOs(from, amount, txs)
 
 	//获取钱包的集合：
 	wallets := NewWallets()
@@ -69,7 +70,7 @@ func NewSimpleTransation(from string, to string, amount int64, bc *Blockchain, t
 	tx.SetID()
 	//fmt.Println(tx)
 	//设置签名
-	bc.SignTrasanction(tx, wallet.PrivateKey, txs)
+	utxoSet.blockChain.SignTrasanction(tx, wallet.PrivateKey, txs)
 
 	return tx
 }
