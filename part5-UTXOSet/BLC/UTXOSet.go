@@ -198,6 +198,7 @@ func (utxoSet *UTXOSet) Update() {
 					bytes.Compare(txInput.TxID, tx.TxID) == 0 {
 					//已花费
 					isSpent = true
+					break
 				}
 			}
 			if isSpent == false {
@@ -213,13 +214,12 @@ func (utxoSet *UTXOSet) Update() {
 		}
 	}
 
-	for txid, outputs := range outsMap {
-		fmt.Printf("---------txID :%s", txid)
-		for _, utxo := range outputs.UTXOs {
-			fmt.Println(utxo)
-		}
-	}
-
+	//for txid, outputs := range outsMap {
+	//	fmt.Printf("---------txID :%s", txid)
+	//	for _, utxo := range outputs.UTXOs {
+	//		fmt.Println(utxo)
+	//	}
+	//}
 
 	//获取utxo表,将input对应的utxo删除, 添加outsMap中的utxo
 	err := utxoSet.blockChain.DB.Update(func(tx *bolt.Tx) error {
@@ -263,7 +263,6 @@ func (utxoSet *UTXOSet) Update() {
 						b.Put(input.TxID, outputs.Serialize())
 					}
 				}
-
 
 			}
 
