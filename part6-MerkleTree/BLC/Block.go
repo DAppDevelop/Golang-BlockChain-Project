@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"encoding/gob"
 	"log"
-	"crypto/sha256"
 	"fmt"
 )
 
@@ -40,16 +39,26 @@ func CreateGenesisBlock(txs []*Transaction) *Block {
 
 // 需要将Txs里面每个tx.TxID拼接后hash, 转换成[]byte(256)
 func (block *Block) HashTransactions() []byte {
-	var txHashes [][]byte
-	var txHash [32]byte
+	//var txHashes [][]byte
+	//	//var txHash [32]byte
+	//	//
+	//	//for _, tx := range block.Txs {
+	//	//	txHashes = append(txHashes, tx.TxID)
+	//	//}
+	//	//txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
+	//	//
+	//	//return txHash[:]
 
-	for _, tx := range block.Txs {
-		txHashes = append(txHashes, tx.TxID)
+	//将txs的hash序列号为[]byte,并放进一个数组里面
+	var txs [][]byte
+	for _,tx := range block.Txs {
+		txBytes := tx.Serialize()
+		txs = append(txs, txBytes)
 	}
-	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
 
-	return txHash[:]
+	merkleTree := NewMerkleTree(txs)
 
+	return merkleTree.RootNode.DataHash
 }
 
 // 序列化：将区块序列化成字节数组
