@@ -10,7 +10,6 @@ import (
 func startServer(nodeID string, mineAddress string) {
 	//拼接nodeID到ip后
 	nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
-	//fmt.Println(nodeAddress)
 	//监听地址
 	listener, err := net.Listen("tcp", nodeAddress)
 
@@ -56,6 +55,14 @@ func handleConnection(conn net.Conn, bc *Blockchain) {
 	switch command {
 	case COMMAND_VERSION:
 		handleVersion(request, bc)
+	case COMMAND_GETBLOCKS:
+		handleGetBlocksHash(request, bc)
+	case COMMAND_INV:
+		handleInv(request, bc)
+	case COMMAND_GETDATA:
+		handleGetData(request, bc)
+	case COMMAND_BLOCKDATA:
+		handleGetBlockData(request, bc)
 	default:
 		fmt.Println("无法识别....")
 	}

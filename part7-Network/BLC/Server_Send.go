@@ -12,7 +12,7 @@ import (
 	所有消息都是通过这个方法来发送到其他节点
  */
 func sendData(to string, data []byte)  {
-	fmt.Println("向",to,"发送",data)
+	//fmt.Println("向",to,"发送",data)
 	conn, err := net.Dial("tcp", to)
 	if err != nil {
 		log.Panic(err)
@@ -42,5 +42,23 @@ func sendVersion(to string, bc *Blockchain)  {
 
 	//发送
 	sendData(to, request)
+
+}
+
+func sendGetBlocksHash(to string)  {
+
+	fmt.Println("sendGetBlocksHash")
+
+}
+
+func sendInv(to string, kind string, data [][]byte)  {
+
+}
+
+func sendGetData(to string, kind string, hash []byte)  {
+
+}
+
+func sendBlock(to string, block *Block)  {
 
 }

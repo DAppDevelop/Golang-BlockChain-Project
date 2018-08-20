@@ -31,7 +31,25 @@ func handleVersion(request []byte, bc *Blockchain) {
 		sendVersion(version.AddrFrom, bc)
 	} else if foreignerBestHeight > height {
 		//当前节点比对方节点高度低,向对方节点请求对方节点的blockchain hash集
-
+		sendGetBlocksHash(version.AddrFrom)
 	}
 
 }
+
+func handleGetBlocksHash(request []byte, bc *Blockchain)  {
+
+}
+
+func handleInv(request []byte, bc *Blockchain)  {
+
+}
+
+func handleGetData(request []byte, bc *Blockchain)  {
+
+}
+
+func handleGetBlockData(request []byte, bc *Blockchain)  {
+
+}
+
+

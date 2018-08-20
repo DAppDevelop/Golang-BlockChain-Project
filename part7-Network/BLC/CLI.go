@@ -32,7 +32,7 @@ func (cli *CLI) Run() {
 		os.Exit(1)
 	}
 
-	fmt.Println(nodeID)
+	fmt.Println("当前节点是:", nodeID)
 
 	//1.---------创建flagset命令对象
 	//e.g. ./moac addblock

@@ -80,6 +80,6 @@ func bytesToCommand(commandBtyes []byte) string {
 			command = append(command, b)
 		}
 	}
-	fmt.Println("commandBytes:", commandBtyes, "command: ", command)
+	//fmt.Println("commandBytes:", commandBtyes, "command: ", command)
 	return fmt.Sprintf("%s", command)
 }
