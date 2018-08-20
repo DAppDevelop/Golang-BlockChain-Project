@@ -423,7 +423,7 @@ func BlockchainObject(nodeID string) *Blockchain {
 			if b != nil {
 				//读取最新hash
 				hash := b.Get([]byte("l"))
-				blockchain = &Blockchain{hash,db}
+				blockchain = &Blockchain{hash, db}
 			}
 			return nil
 		})
@@ -579,4 +579,89 @@ func (bc *Blockchain) GetBestHeight() int64 {
 	bestBlockChain := bc.Iterator().Next()
 
 	return bestBlockChain.Height
+}
+
+func (bc *Blockchain) getBlocksHashes() [][]byte {
+	//迭代
+	iterator := bc.Iterator()
+
+	var blocksHashes [][]byte
+
+	for {
+		block := iterator.Next()
+
+		blocksHashes = append(blocksHashes, block.Hash)
+
+		bigInt := new(big.Int)
+		bigInt.SetBytes(block.PrevBlockHash)
+
+		if big.NewInt(0).Cmp(bigInt) == 0 {
+			break
+		}
+	}
+
+	return blocksHashes
+}
+
+/*
+	根据hash,获取对应的block
+ */
+func (bc *Blockchain) GetBlockByHash(hash []byte) *Block {
+	var block *Block
+
+	//遍历
+	err := bc.DB.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(BlockBucketName))
+		if b != nil {
+			blockBytes := b.Get(hash)
+			block = DeserializeBlock(blockBytes)
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return block
+}
+
+/*
+	添加一个block到blockChain里面
+ */
+func (bc *Blockchain) AddBlock(block *Block) {
+	err := bc.DB.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(BlockBucketName))
+		if b != nil {
+			//判断次区块是否已经在本地的数据库里面
+			blockBytes := b.Get(block.Hash)
+			if blockBytes != nil {
+				return nil
+			}
+
+			err := b.Put(block.Hash, block.Serialize())
+			if err != nil {
+				log.Panic(err)
+			}
+
+			//判断新添加的block高度是否比当期最高高度高,是的话替换l
+			lastBlockHash := b.Get([]byte("l"))
+			lastBlockBytes := b.Get(lastBlockHash)
+			lastBlock := DeserializeBlock(lastBlockBytes)
+
+			if lastBlock.Height < block.Height {
+				b.Put([]byte("l"), block.Hash)
+				bc.Tip = block.Hash
+			}
+
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Panic(err)
+	}
+
 }
