@@ -30,21 +30,11 @@ func sendData(to string, data []byte) {
 	发送本地版本/区块高度
  */
 func sendVersion(to string, bc *Blockchain) {
-	//获取当前节点区块链高度
-	bestHeight := bc.GetBestHeight()
-
-	//创建Version对象(为version命令消息要传送的数据)
+	//1.创建对象
+	bestHeight := bc.GetBestHeight()//获取当前节点区块链高度
 	version := &Version{NODE_VERSION, bestHeight, nodeAddress}
 
-	//序列化version对象
-	payload := gobEncode(version)
-
-	//将序列化的version命令和数据payload拼接成特定格式的[]byte
-	request := append(commandToBytes(COMMAND_VERSION), payload...)
-
-	//发送
-	sendData(to, request)
-
+	sendCommandData(COMMAND_VERSION, version, to)
 }
 
 /*
@@ -53,12 +43,8 @@ func sendVersion(to string, bc *Blockchain) {
 func sendGetBlocksHash(to string) {
 	//1.创建对象
 	getBlocks := GetBlocks{nodeAddress}
-	//2.对象序列化为[]byte
-	payload := gobEncode(getBlocks)
-	//3.拼接命令和对象序列化
-	request := append(commandToBytes(COMMAND_GETBLOCKS), payload...)
-	//4.发送消息
-	sendData(to, request)
+
+	sendCommandData(COMMAND_GETBLOCKS, getBlocks, to)
 }
 
 /*
@@ -67,35 +53,35 @@ func sendGetBlocksHash(to string) {
 func sendInv(to string, kind string, data [][]byte) {
 	//1.创建对象
 	inv := Inv{nodeAddress, kind, data}
-	//2.对象序列化为[]byte
-	payload := gobEncode(inv)
-	//3.拼接命令和对象序列化
-	request := append(commandToBytes(COMMAND_INV), payload...)
-	//4.发送消息
-	sendData(to, request)
+
+	sendCommandData(COMMAND_INV, inv, to)
 }
 
 /*
-
+	发送请求对方根据hash返回对应的block的消息
  */
 func sendGetData(to string, kind string, hash []byte) {
 	//1.创建对象
 	getData := GetData{nodeAddress, kind, hash}
-	//2.对象序列化为[]byte
-	payload := gobEncode(getData)
-	//3.拼接命令和对象序列化
-	request := append(commandToBytes(COMMAND_GETDATA), payload...)
-	//4.发送消息
-	sendData(to, request)
+
+	sendCommandData(COMMAND_GETDATA, getData, to)
 }
 
+/*
+	发送block对象给对方
+ */
 func sendBlock(to string, block *Block) {
 	//1.创建对象
 	blockData := BlockData{nodeAddress, block.Serialize()}
+
+	sendCommandData(COMMAND_BLOCKDATA, blockData, to)
+}
+
+func sendCommandData(command string, data interface{}, to string)  {
 	//2.对象序列化为[]byte
-	payload := gobEncode(blockData)
+	payload := gobEncode(data)
 	//3.拼接命令和对象序列化
-	request := append(commandToBytes(COMMAND_BLOCKDATA), payload...)
+	request := append(commandToBytes(command), payload...)
 	//4.发送消息
 	sendData(to, request)
 }
