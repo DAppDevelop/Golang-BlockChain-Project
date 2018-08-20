@@ -1,6 +1,64 @@
 package BLC
 
-func startServer(nodeID string, mineAddress string)  {
+import (
+	"fmt"
+	"net"
+	"log"
+	"io/ioutil"
+)
 
+func startServer(nodeID string, mineAddress string) {
+	//拼接nodeID到ip后
+	nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
+	//fmt.Println(nodeAddress)
+	//监听地址
+	listener, err := net.Listen("tcp", nodeAddress)
 
+	if err != nil {
+		log.Panic(err)
+	}
+
+	defer listener.Close()
+
+	bc := BlockchainObject(nodeID)
+	defer bc.DB.Close()
+
+	//判断是否为主节点, 非主节点的节点需要向主节点发送Version消息
+	fmt.Println(nodeAddress, knowNodes[0])
+	if nodeAddress != knowNodes[0] {
+		//fmt.Println("sendVersion")
+		sendVersion(knowNodes[0], bc)
+	}
+
+	for {
+		conn, err := listener.Accept()
+
+		if err != nil {
+			log.Panic(err)
+		}
+
+		fmt.Println("发送方已接入..", conn.RemoteAddr())
+
+		go handleConnection(conn, bc)
+	}
+}
+
+func handleConnection(conn net.Conn, bc *Blockchain) {
+	request, err := ioutil.ReadAll(conn)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	command := bytesToCommand(request[:COMMAND_LENGTH])
+
+	fmt.Printf("接收到的命令是：%s\n", command)
+
+	switch command {
+	case COMMAND_VERSION:
+		handleVersion(request, bc)
+	default:
+		fmt.Println("无法识别....")
+	}
+
+	defer conn.Close()
 }

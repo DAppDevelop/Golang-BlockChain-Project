@@ -1,6 +1,6 @@
 package BLC
 
-var knowNodes = []string{"locahost:3000"}
+var knowNodes = []string{"localhost:3000"}//主节点地址
 
 var nodeAddress string//当前节点地址
 

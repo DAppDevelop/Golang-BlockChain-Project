@@ -24,14 +24,21 @@ func (cli *CLI) Run() {
 	./bc send -from '["yancey","alice"]' -to '["bob","cici"]' -amount '["4","5"]'
 
 	 */
-
 	isValidArgs()
+
+	nodeID := os.Getenv("NODE_ID")
+	if nodeID == "" {
+		fmt.Println("没有设置NODE_ID")
+		os.Exit(1)
+	}
+
+	fmt.Println(nodeID)
 
 	//1.---------创建flagset命令对象
 	//e.g. ./moac addblock
 	//./bc  命令 -参数名 参数
 	createWalletCmd := flag.NewFlagSet("createwallet", flag.ExitOnError)
-	getAddresslistsCmd:=flag.NewFlagSet("getaddresslists",flag.ExitOnError)
+	getAddresslistsCmd := flag.NewFlagSet("getaddresslists", flag.ExitOnError)
 	createblockchainCmd := flag.NewFlagSet("create", flag.ExitOnError)
 	sendCmd := flag.NewFlagSet("send", flag.ExitOnError)
 	printChainCmd := flag.NewFlagSet("print", flag.ExitOnError)
@@ -103,7 +110,7 @@ func (cli *CLI) Run() {
 		from := JSONToArray(*flagFrom)
 		to := JSONToArray(*flagTo)
 		amount := JSONToArray(*flagAmount)
-		cli.send(from, to, amount)
+		cli.send(from, to, amount, nodeID)
 	}
 
 	if createblockchainCmd.Parsed() {
@@ -113,11 +120,11 @@ func (cli *CLI) Run() {
 			os.Exit(1)
 		}
 
-		cli.createGenesisBlockchain(*flagCoinbase)
+		cli.createGenesisBlockchain(*flagCoinbase,nodeID)
 	}
 
 	if printChainCmd.Parsed() {
-		cli.printchain()
+		cli.printchain(nodeID)
 	}
 
 	if getBalanceCmd.Parsed() {
@@ -127,23 +134,23 @@ func (cli *CLI) Run() {
 			os.Exit(1)
 		}
 
-		cli.getBalance(*flagGetbalanceWithAddress)
+		cli.getBalance(*flagGetbalanceWithAddress,nodeID)
 	}
 
 	if createWalletCmd.Parsed() {
-		cli.CreateWallet()
+		cli.CreateWallet(nodeID)
 	}
 
 	if getAddresslistsCmd.Parsed() {
-		cli.GetAddressList()
+		cli.GetAddressList(nodeID)
 	}
 
 	if resetCmd.Parsed() {
-		cli.Test()
+		cli.Test(nodeID)
 	}
 
 	if startNodeCmd.Parsed() {
-		cli.startNode(*flagStartNodeWithMiner)
+		cli.startNode(nodeID, *flagStartNodeWithMiner)
 	}
 
 }

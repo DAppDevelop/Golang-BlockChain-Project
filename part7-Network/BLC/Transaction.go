@@ -37,7 +37,7 @@ func NewCoinbaseTransacion(address string) *Transaction {
 }
 
 //2. 创建普通交易产生的Transaction
-func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet, txs []*Transaction) *Transaction {
+func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet, txs []*Transaction, nodeID string) *Transaction {
 	//1.定义Input和Output的数组
 	var txInputs []*TXInput
 	var txOutputs []*TXOutput
@@ -47,7 +47,7 @@ func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet,
 	total, spentableUTXO := utxoSet.FindSpentableUTXOs(from, amount, txs)
 
 	//获取钱包的集合：
-	wallets := NewWallets()
+	wallets := NewWallets(nodeID)
 	wallet := wallets.WalletMap[from]
 
 	//2.创建Input

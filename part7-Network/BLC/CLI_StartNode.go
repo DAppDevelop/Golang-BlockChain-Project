@@ -1,8 +1,16 @@
 package BLC
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
-func (cli *CLI)startNode (miner string)  {
-	fmt.Println(miner)
-	startServer("", miner)
+func (cli *CLI)startNode (nodeID string, miner string)  {
+	//fmt.Println(miner)
+	if miner == "" || IsValidAddress([]byte(miner)) {
+		startServer(nodeID, miner)
+	} else {
+		fmt.Println("Miner地址无效")
+		os.Exit(1)
+	}
 }

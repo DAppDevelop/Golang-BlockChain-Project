@@ -1,20 +1,17 @@
 package BLC
 
 import (
-	"fmt"
 	"os"
 )
 
-func (cli *CLI) createGenesisBlockchain(address string) {
-	CreateBlockchainWithGenesisBlock(address)
+func (cli *CLI) createGenesisBlockchain(address string, nodeID string) {
+	CreateBlockchainWithGenesisBlock(address,nodeID)
 
-	block := BlockchainObject()
-	defer block.DB.Close()
-
+	block := BlockchainObject(nodeID)
 	if block == nil {
-		fmt.Println("没有数据库。。")
 		os.Exit(1)
 	}
+	defer block.DB.Close()
 
 	utxoSet := &UTXOSet{block}
 	utxoSet.ResetUTXOSet()

@@ -1,6 +1,8 @@
 package main
 
-import "blockchain/part7-Network/BLC"
+import (
+	"go-BlockChain/part7-Network/BLC"
+)
 
 func main() {
 	////创建命令行对象

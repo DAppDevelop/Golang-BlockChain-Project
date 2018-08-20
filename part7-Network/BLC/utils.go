@@ -5,6 +5,8 @@ import (
 	"encoding/binary"
 	"log"
 	"encoding/json"
+	"encoding/gob"
+	"fmt"
 )
 
 // 将int64转换为[]uint8 字节数组(十进制转为256进制？）
@@ -41,4 +43,43 @@ func ReverseBytes(data []byte) {
 	for i, j := 0, len(data)-1; i < j; i, j = i+1, j-1 {
 		data[i], data[j] = data[j], data[i]
 	}
+}
+
+
+//对象序列化
+func gobEncode(data interface{}) []byte {
+	var buff bytes.Buffer
+	encoder := gob.NewEncoder(&buff)
+	err := encoder.Encode(data)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return buff.Bytes()
+}
+
+//将命令转换成字节数组
+func commandToBytes(command string) []byte  {
+	var bytes [COMMAND_LENGTH]byte //设置为12字节长度
+
+	//将命令string转换为byte格式并放进bytes, 剩余位置用0填充
+	for i, c := range command {
+		bytes[i] = byte(c)
+	}
+
+	return bytes[:]
+}
+
+//将字节数组转换成命令
+func bytesToCommand(commandBtyes []byte) string {
+	var command []byte
+
+	//去掉commandBytes中的0
+	for _, b := range commandBtyes {
+		if b != 0x0 {
+			command = append(command, b)
+		}
+	}
+	fmt.Println("commandBytes:", commandBtyes, "command: ", command)
+	return fmt.Sprintf("%s", command)
 }

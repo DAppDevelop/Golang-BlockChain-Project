@@ -1,11 +1,8 @@
 package BLC
 
-import (
-	"fmt"
-	"os"
-)
+import "os"
 
-func (cli *CLI) send(from []string, to []string, amount []string) {
+func (cli *CLI) send(from []string, to []string, amount []string, nodeID string) {
 	/*
 	address:  1Rs9zcPDqosXucdJjGP4wjGrtA1SmYpwGnQBMCprE2TdvhUyhk	c
 	address:  1YfMAGkzTU3P19DobiAiggGzzcymvJyePughP37efhVgCV4W8e	b
@@ -21,15 +18,14 @@ func (cli *CLI) send(from []string, to []string, amount []string) {
 	3/	b->c 3  c->a 1			a: 24 / b: 13 / c: 3
 	4/  a->c 8					a: 26 / b: 13 / c: 11
 	 */
-	if DBExists() == false {
-		fmt.Println("数据不存在.......")
+
+	bc := BlockchainObject(nodeID)
+	if bc == nil {
 		os.Exit(1)
 	}
-
-	bc := BlockchainObject()
 	defer bc.DB.Close()
 
-	bc.MineNewBlock(from, to, amount)
+	bc.MineNewBlock(from, to, amount,nodeID)
 
 	utxoSet := &UTXOSet{bc}
 	utxoSet.Update()

@@ -18,10 +18,13 @@ type Blockchain struct {
 }
 
 //1. 创建带有创世区块的区块链
-func CreateBlockchainWithGenesisBlock(address string) {
+func CreateBlockchainWithGenesisBlock(address string, nodeID string) {
+
+	//设置dbname
+	DBName := fmt.Sprintf(DBName, nodeID) //"blockchain_3000.db"
 
 	//判断数据库是否已经存
-	if DBExists() {
+	if DBExists(DBName) {
 		fmt.Println("Genesis Block 已经存在...")
 		os.Exit(1)
 	}
@@ -76,7 +79,7 @@ func CreateBlockchainWithGenesisBlock(address string) {
 }
 
 // 挖矿产生区块
-func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string) {
+func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string, nodeID string) {
 	/*
 	1.新建交易
 	2.新建区块：
@@ -86,11 +89,11 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 	//1. 根据from/to/amount 通过相关算法建立Transaction数组
 	var txs []*Transaction
-	utxoSet :=&UTXOSet{blockchain}
+	utxoSet := &UTXOSet{blockchain}
 	for i := 0; i < len(from); i++ {
 		//转换amount为int
 		amountInt, _ := strconv.Atoi(amount[i])
-		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), utxoSet, txs)
+		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), utxoSet, txs, nodeID)
 		//fmt.Println(tx)
 		txs = append(txs, tx)
 	}
@@ -374,34 +377,64 @@ func (blockchain *Blockchain) Iterator() *BlockchainIterator {
 }
 
 // 判断数据库是否存在
-func DBExists() bool {
+func DBExists(DBName string) bool {
 	if _, err := os.Stat(DBName); os.IsNotExist(err) {
 		return false
 	}
-
 	return true
 }
 
 // 返回Blockchain对象
-func BlockchainObject() *Blockchain {
+func BlockchainObject(nodeID string) *Blockchain {
 	//因为已经知道数据库的名字，所以只要取出最新区块hash，既可以返回blockchain对象
-	db, err := bolt.Open(DBName, 0600, nil)
-	if err != nil {
-		log.Panic(err)
-	}
+	//db, err := bolt.Open(DBName, 0600, nil)
+	//if err != nil {
+	//	log.Panic(err)
+	//}
+	//
+	//var tip []byte
+	//
+	//db.View(func(tx *bolt.Tx) error {
+	//	b := tx.Bucket([]byte(BlockBucketName))
+	//	if b != nil {
+	//		//取出最新区块hash
+	//		tip = b.Get([]byte("l"))
+	//	}
+	//	return nil
+	//})
+	//
+	//return &Blockchain{tip, db}
 
-	var tip []byte
+	DBName := fmt.Sprintf(DBName, nodeID)
 
-	db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(BlockBucketName))
-		if b != nil {
-			//取出最新区块hash
-			tip = b.Get([]byte("l"))
+	if DBExists(DBName) {
+		//fmt.Println("数据库已经存在。。。")
+		//打开数据库
+		db, err := bolt.Open(DBName, 0600, nil)
+		if err != nil {
+			log.Panic(err)
 		}
-		return nil
-	})
 
-	return &Blockchain{tip, db}
+		var blockchain *Blockchain
+
+		err = db.View(func(tx *bolt.Tx) error {
+			//打开bucket，读取l对应的最新的hash
+			b := tx.Bucket([]byte(BlockBucketName))
+			if b != nil {
+				//读取最新hash
+				hash := b.Get([]byte("l"))
+				blockchain = &Blockchain{hash,db}
+			}
+			return nil
+		})
+		if err != nil {
+			log.Panic(err)
+		}
+		return blockchain
+	} else {
+		fmt.Println("数据库不存在，无法获取BlockChain对象。。。")
+		return nil
+	}
 }
 
 func (bc *Blockchain) SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKey, txs [] *Transaction) {
@@ -484,7 +517,7 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 		//倒序遍历block里面的TXs
 		for i := len(block.Txs) - 1; i >= 0; i-- {
 			//收集input
-			tx := block.Txs[i]//当期的TX交易
+			tx := block.Txs[i]                     //当期的TX交易
 			txIDStr := hex.EncodeToString(tx.TxID) //TXID string
 
 			txOutputs := &TxOutputs{[]*UTXO{}}
@@ -497,15 +530,13 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 				}
 			}
 
-
 			//根据spentedMp,遍历outputs 找出 UTXO
 		outputLoop:
 			for index, txOutput := range tx.Vouts {
 
-
 				if len(spentedMp) > 0 {
 					//isSpent := false
-					inputs := spentedMp[txIDStr]//如果inputs 存在, 则对应的交易里面某笔output肯定已经被消费
+					inputs := spentedMp[txIDStr] //如果inputs 存在, 则对应的交易里面某笔output肯定已经被消费
 					for _, input := range inputs {
 						//判断input对应的是否当期的output
 						if index == input.Vout && input.UnlockWithAddress(txOutput.PubKeyHash) {
@@ -516,13 +547,13 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 					}
 
 					//if isSpent == false {
-						//outputs 加进utxoMap
-						utxo := &UTXO{ tx.TxID, index, txOutput}
-						txOutputs.UTXOs = append(txOutputs.UTXOs, utxo)
-					//}
-				} else  {
 					//outputs 加进utxoMap
-					utxo := &UTXO{ tx.TxID, index, txOutput}
+					utxo := &UTXO{tx.TxID, index, txOutput}
+					txOutputs.UTXOs = append(txOutputs.UTXOs, utxo)
+					//}
+				} else {
+					//outputs 加进utxoMap
+					utxo := &UTXO{tx.TxID, index, txOutput}
 					txOutputs.UTXOs = append(txOutputs.UTXOs, utxo)
 				}
 			}
@@ -530,7 +561,6 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 			if len(txOutputs.UTXOs) > 0 {
 				utxoMap[txIDStr] = txOutputs
 			}
-
 
 		}
 
@@ -543,4 +573,10 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 	}
 
 	return utxoMap
+}
+
+func (bc *Blockchain) GetBestHeight() int64 {
+	bestBlockChain := bc.Iterator().Next()
+
+	return bestBlockChain.Height
 }

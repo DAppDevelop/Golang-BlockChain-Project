@@ -14,7 +14,7 @@ type Wallets struct {
 	WalletMap map[string]*Wallet
 }
 
-const walletsFile = "Wallets.dat" //存储钱包数据的本地文件名
+const walletsFile = "Wallets_%s.dat"//存储钱包数据的本地文件名
 
 //提供一个函数，用于创建一个钱包的集合
 /*
@@ -23,7 +23,8 @@ const walletsFile = "Wallets.dat" //存储钱包数据的本地文件名
 	如果文件不存在，创建钱包对象
  */
 
-func NewWallets() *Wallets {
+func NewWallets(nodeID string) *Wallets {
+	walletsFile := fmt.Sprintf(walletsFile,nodeID)
 	//step1：钱包文件不存在
 	if _, err := os.Stat(walletsFile); os.IsNotExist(err) {
 		fmt.Println("钱包文件不存在。。。")
@@ -51,17 +52,20 @@ func NewWallets() *Wallets {
 	return &wallets
 }
 
-func (ws *Wallets) CreateWallet()  {
+func (ws *Wallets) CreateWallet(nodeID string)  {
 	wallet := NewWallet()
 	address := wallet.GetAddress()
 	fmt.Printf("创建的钱包地址：%s\n",address)
 
 	ws.WalletMap[string(address)] =wallet
 
-	ws.saveFile()
+	ws.saveFile(nodeID)
 }
 
-func (ws *Wallets) saveFile () {
+func (ws *Wallets) saveFile (nodeID string) {
+
+	walletsFile := fmt.Sprintf(walletsFile,nodeID)
+
 	var buf bytes.Buffer
 	gob.Register(elliptic.P256())
 
