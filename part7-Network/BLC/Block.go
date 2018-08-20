@@ -2,10 +2,10 @@ package BLC
 
 import (
 	"time"
-	"bytes"
-	"encoding/gob"
-	"log"
 	"fmt"
+	"encoding/gob"
+	"bytes"
+	"log"
 )
 
 type Block struct {
@@ -52,7 +52,7 @@ func (block *Block) HashTransactions() []byte {
 	//将txs的hash序列号为[]byte,并放进一个数组里面
 	var txs [][]byte
 	for _,tx := range block.Txs {
-		txBytes := tx.Serialize()
+		txBytes := gobEncode(tx)
 		txs = append(txs, txBytes)
 	}
 
@@ -61,23 +61,7 @@ func (block *Block) HashTransactions() []byte {
 	return merkleTree.RootNode.DataHash
 }
 
-// 序列化：将区块序列化成字节数组
-func (block *Block) Serialize() []byte {
-
-	var result bytes.Buffer
-
-	encoder := gob.NewEncoder(&result)
-
-	err := encoder.Encode(block)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	//fmt.Println(result.Bytes())
-	return result.Bytes()
-}
-
-// 反序列化：将字节数组反序列化为block对象
+//// 反序列化：将字节数组反序列化为block对象
 func DeserializeBlock(blockBytes []byte) *Block {
 
 	var block Block

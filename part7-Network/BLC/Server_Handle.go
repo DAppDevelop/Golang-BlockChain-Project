@@ -4,7 +4,6 @@ import (
 	"encoding/gob"
 	"bytes"
 	"log"
-	"fmt"
 )
 
 /*
@@ -137,9 +136,11 @@ func handleGetBlockData(request []byte, bc *Blockchain) {
 	}
 
 	blockBytes := getBlockData.Block
-	block := DeserializeBlock(blockBytes)
-	fmt.Println(block)
-	bc.AddBlock(block)
+	//block := DeserializeBlock(blockBytes)
+	var block Block
+	gobDecode(blockBytes, &block)
+	//fmt.Println(&block)
+	bc.AddBlock(&block)
 
 	if len(blockArray) == 0 {
 		utxoSet := UTXOSet{bc}

@@ -23,9 +23,8 @@ func IntToHex(num int64) []byte {
 		log.Panic(err)
 	}
 
-	return buff.Bytes()// [0 0 0 0 0 0 1 0]
+	return buff.Bytes() // [0 0 0 0 0 0 1 0]
 }
-
 
 // 标准的JSON字符串转数组
 func JSONToArray(jsonString string) []string {
@@ -45,7 +44,6 @@ func ReverseBytes(data []byte) {
 	}
 }
 
-
 //对象序列化
 func gobEncode(data interface{}) []byte {
 	var buff bytes.Buffer
@@ -58,8 +56,17 @@ func gobEncode(data interface{}) []byte {
 	return buff.Bytes()
 }
 
+// 反序列化：将字节数组反序列化为block对象
+func gobDecode(blockBytes []byte, o interface{}) {
+	decoder := gob.NewDecoder(bytes.NewReader(blockBytes))
+	err := decoder.Decode(o)
+	if err != nil {
+		log.Panic(err)
+	}
+}
+
 //将命令转换成字节数组
-func commandToBytes(command string) []byte  {
+func commandToBytes(command string) []byte {
 	var bytes [COMMAND_LENGTH]byte //设置为12字节长度
 
 	//将命令string转换为byte格式并放进bytes, 剩余位置用0填充

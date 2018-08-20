@@ -2,7 +2,6 @@ package BLC
 
 import (
 	"bytes"
-	"encoding/gob"
 	"log"
 	"crypto/sha256"
 	"fmt"
@@ -175,7 +174,7 @@ func (tx *Transaction) TrimmedCopy() *Transaction {
 //将Transaction 序列化再进行 hash
 func (tx *Transaction) SetID() {
 
-	txBytes := tx.Serialize()
+	txBytes := gobEncode(tx)
 
 	allBytes := bytes.Join([][]byte{txBytes, IntToHex(time.Now().Unix())}, []byte{})
 
@@ -187,19 +186,10 @@ func (tx *Transaction) SetID() {
 func (tx *Transaction) NewTxID() []byte {
 	txCopy := tx
 	//txCopy.TxID = []byte{}
-	hash := sha256.Sum256(txCopy.Serialize())
+	hash := sha256.Sum256(gobEncode(txCopy))
 	return hash[:]
 }
 
-func (tx *Transaction) Serialize() [] byte {
-	var buf bytes.Buffer
-	encoder := gob.NewEncoder(&buf)
-	err := encoder.Encode(tx)
-	if err != nil {
-		log.Panic(err)
-	}
-	return buf.Bytes()
-}
 
 //验证交易
 /*

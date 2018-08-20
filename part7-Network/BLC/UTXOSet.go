@@ -45,7 +45,7 @@ func (utxoset *UTXOSet) ResetUTXOSet() {
 
 			for txIDStr, outs := range utxoMap {
 				txID, _ := hex.DecodeString(txIDStr)
-				b.Put(txID, outs.Serialize())
+				b.Put(txID, gobEncode(outs))
 			}
 		}
 		return nil
@@ -260,7 +260,7 @@ func (utxoSet *UTXOSet) Update() {
 
 					if len(utxos) > 0 {
 						outputs := &TxOutputs{utxos}
-						b.Put(input.TxID, outputs.Serialize())
+						b.Put(input.TxID, gobEncode(outputs))
 					}
 				}
 
@@ -269,7 +269,7 @@ func (utxoSet *UTXOSet) Update() {
 			//2.添加outsMap 到数据库中
 			for txID, outputs := range outsMap {
 				txIDBytes, _ := hex.DecodeString(txID)
-				b.Put(txIDBytes, outputs.Serialize())
+				b.Put(txIDBytes, gobEncode(outputs))
 			}
 
 		}

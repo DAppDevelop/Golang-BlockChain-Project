@@ -55,7 +55,7 @@ func CreateBlockchainWithGenesisBlock(address string, nodeID string) {
 			genesisBlock := CreateGenesisBlock([]*Transaction{txCoinbase})
 
 			//序列号block并存入数据库
-			err := b.Put(genesisBlock.Hash, genesisBlock.Serialize())
+			err := b.Put(genesisBlock.Hash, gobEncode(genesisBlock))
 
 			if err != nil {
 				log.Panic(err)
@@ -114,7 +114,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 	txs = append(txs, coinBaseTransaction)
 
 	//获取最新的block
-	var block *Block
+	var block Block
 	err := blockchain.DB.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
@@ -123,7 +123,7 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 			blockBytes := b.Get(hash)
 
-			block = DeserializeBlock(blockBytes)
+			gobDecode(blockBytes, &block)
 		}
 		return nil
 	})
@@ -133,18 +133,18 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 	}
 
 	//2. 根据数据库最新的block的信息,建立新的区块
-	block = NewBlock(txs, block.Height+1, block.Hash)
-
+	newBlock := NewBlock(txs, block.Height+1, block.Hash)
+	println(newBlock)
 	//将新区块存储到数据库
 	err = blockchain.DB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 
-			b.Put(block.Hash, block.Serialize())
+			b.Put(newBlock.Hash, gobEncode(newBlock))
 
-			b.Put([]byte("l"), block.Hash)
+			b.Put([]byte("l"), newBlock.Hash)
 
-			blockchain.Tip = block.Hash
+			blockchain.Tip = newBlock.Hash
 
 		}
 		return nil
@@ -607,14 +607,15 @@ func (bc *Blockchain) getBlocksHashes() [][]byte {
 	根据hash,获取对应的block
  */
 func (bc *Blockchain) GetBlockByHash(hash []byte) *Block {
-	var block *Block
+	var block Block
 
 	//遍历
 	err := bc.DB.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 			blockBytes := b.Get(hash)
-			block = DeserializeBlock(blockBytes)
+			//block = DeserializeBlock(blockBytes)
+			gobDecode(blockBytes, &block)
 		}
 
 		return nil
@@ -624,7 +625,7 @@ func (bc *Blockchain) GetBlockByHash(hash []byte) *Block {
 		log.Panic(err)
 	}
 
-	return block
+	return &block
 }
 
 /*
@@ -640,7 +641,7 @@ func (bc *Blockchain) AddBlock(block *Block) {
 				return nil
 			}
 
-			err := b.Put(block.Hash, block.Serialize())
+			err := b.Put(block.Hash, gobEncode(block))
 			if err != nil {
 				log.Panic(err)
 			}
@@ -648,7 +649,9 @@ func (bc *Blockchain) AddBlock(block *Block) {
 			//判断新添加的block高度是否比当期最高高度高,是的话替换l
 			lastBlockHash := b.Get([]byte("l"))
 			lastBlockBytes := b.Get(lastBlockHash)
-			lastBlock := DeserializeBlock(lastBlockBytes)
+			//lastBlock := DeserializeBlock(lastBlockBytes)
+			var lastBlock Block
+			gobDecode(lastBlockBytes, &lastBlock)
 
 			if lastBlock.Height < block.Height {
 				b.Put([]byte("l"), block.Hash)

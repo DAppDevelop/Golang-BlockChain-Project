@@ -72,7 +72,7 @@ func sendGetData(to string, kind string, hash []byte) {
  */
 func sendBlock(to string, block *Block) {
 	//1.创建对象
-	blockData := BlockData{nodeAddress, block.Serialize()}
+	blockData := BlockData{nodeAddress, gobEncode(block)}
 
 	sendCommandData(COMMAND_BLOCKDATA, blockData, to)
 }
