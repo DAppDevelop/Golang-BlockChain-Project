@@ -25,24 +25,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server_Send.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/Server_Send.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="86" column="1" lean-forward="true" selection-start-line="86" selection-start-column="1" selection-end-line="86" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server_Inv.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BLC/Server_Inv.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Server_Handle.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BLC/Server_Handle.go">
           <provider selected="true" editor-type-id="text-editor">
@@ -100,11 +82,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlockchainIterator.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BlockchainIterator.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BLC/BlockchainIterator.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+            <state relative-caret-position="418">
+              <caret line="38" column="17" lean-forward="true" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Blockchain.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="376" column="60" selection-start-line="376" selection-start-column="42" selection-end-line="376" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Block.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BLC/Block.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="795">
+              <caret line="56" column="36" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -181,13 +181,11 @@
         <option value="$PROJECT_DIR$/BLC/TXOutputs.go" />
         <option value="$PROJECT_DIR$/BLC/UTXOSet.go" />
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/BLC/Blockchain.go" />
         <option value="$PROJECT_DIR$/BLC/Server_Handle.go" />
         <option value="$PROJECT_DIR$/BLC/Wallet.go" />
         <option value="$PROJECT_DIR$/BLC/Constant.go" />
         <option value="$PROJECT_DIR$/BLC/MerkleTree.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_Test.go" />
-        <option value="$PROJECT_DIR$/BLC/Block.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_printchain.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_reset.go" />
         <option value="$PROJECT_DIR$/BLC/CLI_send.go" />
@@ -199,6 +197,8 @@
         <option value="$PROJECT_DIR$/BLC/Server.go" />
         <option value="$PROJECT_DIR$/BLC/CLI.go" />
         <option value="$PROJECT_DIR$/BLC/BlockchainIterator.go" />
+        <option value="$PROJECT_DIR$/BLC/Block.go" />
+        <option value="$PROJECT_DIR$/BLC/Blockchain.go" />
       </list>
     </option>
   </component>
@@ -303,7 +303,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.38333333" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49817652" visible="true" weight="0.44479167" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49817652" visible="true" weight="0.090625" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -517,20 +517,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Block.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="37" column="49" lean-forward="true" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31">
-          <caret line="387" column="5" selection-start-line="387" selection-start-column="5" selection-end-line="387" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BLC/CLI_reset.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -697,8 +683,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BLC/BlockchainIterator.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        <state relative-caret-position="418">
+          <caret line="38" column="17" lean-forward="true" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Block.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="56" column="36" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BLC/Blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="376" column="60" selection-start-line="376" selection-start-column="42" selection-end-line="376" selection-end-column="60" />
         </state>
       </provider>
     </entry>

@@ -3,9 +3,6 @@ package BLC
 import (
 	"time"
 	"fmt"
-	"encoding/gob"
-	"bytes"
-	"log"
 )
 
 type Block struct {
@@ -53,18 +50,18 @@ func (block *Block) HashTransactions() []byte {
 }
 
 // 反序列化：将字节数组反序列化为block对象
-func DeserializeBlock(blockBytes []byte) *Block {
-
-	var block Block
-
-	decoder := gob.NewDecoder(bytes.NewReader(blockBytes))
-	err := decoder.Decode(&block)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	return &block
-}
+//func DeserializeBlock(blockBytes []byte) *Block {
+//
+//	var block Block
+//
+//	decoder := gob.NewDecoder(bytes.NewReader(blockBytes))
+//	err := decoder.Decode(&block)
+//	if err != nil {
+//		log.Panic(err)
+//	}
+//
+//	return &block
+//}
 
 //打印格式
 func (block *Block) String() string {

@@ -371,12 +371,16 @@ func (blc *Blockchain) Printchain() {
 	}
 }
 
-//迭代器
+/*
+	迭代器
+ */
 func (blockchain *Blockchain) Iterator() *BlockchainIterator {
 	return &BlockchainIterator{blockchain.Tip, blockchain.DB}
 }
 
-// 判断数据库是否存在
+/*
+	判断数据库是否存在
+ */
 func DBExists(DBName string) bool {
 	if _, err := os.Stat(DBName); os.IsNotExist(err) {
 		return false
@@ -384,7 +388,9 @@ func DBExists(DBName string) bool {
 	return true
 }
 
-// 返回Blockchain对象
+/*
+	返回Blockchain对象
+ */
 func BlockchainObject(nodeID string) *Blockchain {
 	//因为已经知道数据库的名字，所以只要取出最新区块hash，既可以返回blockchain对象
 
@@ -420,6 +426,9 @@ func BlockchainObject(nodeID string) *Blockchain {
 	}
 }
 
+/*
+	签名交易
+ */
 func (bc *Blockchain) SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateKey, txs [] *Transaction) {
 	//签名：需要1,私钥，2.要签名的交易中的部分数据
 	//1.判断要签名的tx，如果时coninbase交易直接返回
@@ -438,7 +447,9 @@ func (bc *Blockchain) SignTrasanction(tx *Transaction, privateKey ecdsa.PrivateK
 	tx.Sign(privateKey, prevTxs)
 }
 
-//根据交易ID，获取对应的交易
+/*
+	根据交易ID，获取对应的交易
+ */
 func (bc *Blockchain) FindTransactionByTxID(txID []byte, txs [] *Transaction) *Transaction {
 	//1.先查找未打包的txs
 	for _, tx := range txs {
@@ -467,7 +478,9 @@ func (bc *Blockchain) FindTransactionByTxID(txID []byte, txs [] *Transaction) *T
 	return &Transaction{}
 }
 
-//验证交易的数字签名
+/*
+	验证交易的数字签名
+ */
 func (bc *Blockchain) VerifityTransaction(tx *Transaction, txs []*Transaction) bool {
 	//要想验证数字签名：私钥+数据 (tx的副本+之前的交易)
 	//2.获取该tx中的Input，引用之前的transaction中的未花费的output
@@ -481,7 +494,8 @@ func (bc *Blockchain) VerifityTransaction(tx *Transaction, txs []*Transaction) b
 	return tx.Verifity(prevTxs)
 }
 
-/*	获取所有区块中的UTXO
+/*
+	获取所有区块中的UTXO
 	map[string]*TxOutputs  交易id-->[]*UTXO (这笔交易下的UTXO集合)
 */
 func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
@@ -558,12 +572,18 @@ func (bc *Blockchain) FindUnspentUTXOMap() map[string]*TxOutputs {
 	return utxoMap
 }
 
+/*
+	获取blockchain最高高度
+ */
 func (bc *Blockchain) GetBestHeight() int64 {
 	bestBlockChain := bc.Iterator().Next()
 
 	return bestBlockChain.Height
 }
 
+/*
+	返回blockchain里面所有block的hash
+ */
 func (bc *Blockchain) getBlocksHashes() [][]byte {
 	//迭代
 	iterator := bc.Iterator()
@@ -588,6 +608,7 @@ func (bc *Blockchain) getBlocksHashes() [][]byte {
 
 /*
 	根据hash,获取对应的block
+	hash --> Block
  */
 func (bc *Blockchain) GetBlockByHash(hash []byte) *Block {
 	var block Block
