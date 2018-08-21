@@ -27,7 +27,7 @@ func NewTxOutput(value int64,address string) *TXOutput{
 	return txOutput
 }
 
-//锁定lo
+//锁定
 func (tx *TXOutput) Lock(address string){
 	full_payload := Base58Decode([]byte(address))
 	//获取公钥hash
