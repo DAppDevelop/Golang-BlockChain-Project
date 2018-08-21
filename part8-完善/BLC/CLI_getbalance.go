@@ -7,10 +7,12 @@ import (
 
 func (cli *CLI) getBalance(address string,nodeID string) {
 	blockchain := BlockchainObject(nodeID)
+	defer blockchain.DB.Close()
+
 	if blockchain == nil {
 		os.Exit(1)
 	}
-	defer blockchain.DB.Close()
+
 	//txs 传nil值，查询时没有新的交易产生
 	//total := blockchain.GetBalance(address, []*Transaction{})
 	utxoSet := &UTXOSet{blockchain}

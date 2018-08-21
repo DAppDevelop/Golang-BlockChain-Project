@@ -19,14 +19,15 @@ func (cli *CLI) send(from []string, to []string, amount []string, nodeID string)
 	4/  a->c 8					a: 26 / b: 13 / c: 11
 	 */
 
-	bc := BlockchainObject(nodeID)
-	if bc == nil {
+	blockchain := BlockchainObject(nodeID)
+	defer blockchain.DB.Close()
+
+	if blockchain == nil {
 		os.Exit(1)
 	}
-	defer bc.DB.Close()
 
-	bc.MineNewBlock(from, to, amount,nodeID)
+	blockchain.MineNewBlock(from, to, amount,nodeID)
 
-	utxoSet := &UTXOSet{bc}
+	utxoSet := &UTXOSet{blockchain}
 	utxoSet.Update()
 }

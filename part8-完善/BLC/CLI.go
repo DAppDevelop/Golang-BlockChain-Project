@@ -9,23 +9,11 @@ import (
 
 type CLI struct{}
 
+
 func (cli *CLI) Run() {
-
-	/*
-	Usage:
-		addblock -data DATA
-		printchain
-
-
-	./bc printchain
-		-->执行打印的功能
-
-	./bc send -from '["yancey"]' -to '["alice"]' -amount '["11"]'
-	./bc send -from '["yancey","alice"]' -to '["bob","cici"]' -amount '["4","5"]'
-
-	 */
 	isValidArgs()
 
+	//记录环境变量NODE_ID
 	nodeID := os.Getenv("NODE_ID")
 	if nodeID == "" {
 		fmt.Println("没有设置NODE_ID")
@@ -146,7 +134,7 @@ func (cli *CLI) Run() {
 	}
 
 	if resetCmd.Parsed() {
-		cli.Test(nodeID)
+		cli.Reset(nodeID)
 	}
 
 	if startNodeCmd.Parsed() {
@@ -155,7 +143,9 @@ func (cli *CLI) Run() {
 
 }
 
-//输出使用指南
+/*
+	输出使用指南
+ */
 func printUsage() {
 	fmt.Println("Usage:")
 	fmt.Println("\tcreatewallet -- 创建钱包")
@@ -168,7 +158,9 @@ func printUsage() {
 	fmt.Println("\tstartnode -miner Address -- 启动节点，并指定挖矿的奖励地址")
 }
 
-//判断参数是否有效
+/*
+	判断参数是否有效
+ */
 func isValidArgs() {
 	if len(os.Args) < 2 {
 		printUsage()

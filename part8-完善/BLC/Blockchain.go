@@ -387,23 +387,6 @@ func DBExists(DBName string) bool {
 // 返回Blockchain对象
 func BlockchainObject(nodeID string) *Blockchain {
 	//因为已经知道数据库的名字，所以只要取出最新区块hash，既可以返回blockchain对象
-	//db, err := bolt.Open(DBName, 0600, nil)
-	//if err != nil {
-	//	log.Panic(err)
-	//}
-	//
-	//var tip []byte
-	//
-	//db.View(func(tx *bolt.Tx) error {
-	//	b := tx.Bucket([]byte(BlockBucketName))
-	//	if b != nil {
-	//		//取出最新区块hash
-	//		tip = b.Get([]byte("l"))
-	//	}
-	//	return nil
-	//})
-	//
-	//return &Blockchain{tip, db}
 
 	DBName := fmt.Sprintf(DBName, nodeID)
 

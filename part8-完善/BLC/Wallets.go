@@ -22,7 +22,6 @@ const walletsFile = "Wallets_%s.dat"//存储钱包数据的本地文件名
 	读取本地的钱包文件，如果文件存在，直接获取
 	如果文件不存在，创建钱包对象
  */
-
 func NewWallets(nodeID string) *Wallets {
 	walletsFile := fmt.Sprintf(walletsFile,nodeID)
 	//step1：钱包文件不存在
@@ -52,9 +51,13 @@ func NewWallets(nodeID string) *Wallets {
 	return &wallets
 }
 
+/*
+	创建新wallet并保存
+ */
 func (ws *Wallets) CreateWallet(nodeID string)  {
 	wallet := NewWallet()
 	address := wallet.GetAddress()
+
 	fmt.Printf("创建的钱包地址：%s\n",address)
 
 	ws.WalletMap[string(address)] =wallet
@@ -63,24 +66,13 @@ func (ws *Wallets) CreateWallet(nodeID string)  {
 }
 
 func (ws *Wallets) saveFile (nodeID string) {
-
+	//组合文件名
 	walletsFile := fmt.Sprintf(walletsFile,nodeID)
-
-	var buf bytes.Buffer
-	gob.Register(elliptic.P256())
-
-	encoder := gob.NewEncoder(&buf)
-	err := encoder.Encode(ws)
-
+	//序列化ws对象
+	wsBytes := gobEncodeWithRegister(ws, elliptic.P256())
+	//将序列化后的ws对象存入文件
+	err := ioutil.WriteFile(walletsFile, wsBytes, 0644)
 	if err != nil {
 		log.Panic(err)
 	}
-
-	wsBytes := buf.Bytes()
-
-	err = ioutil.WriteFile(walletsFile, wsBytes, 0644)
-	if err != nil {
-		log.Panic(err)
-	}
-
 }

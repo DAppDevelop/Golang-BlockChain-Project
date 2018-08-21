@@ -11,10 +11,17 @@ import (
 )
 
 type Wallet struct {
-	//1.私钥
-	PrivateKey ecdsa.PrivateKey
-	//2.公钥
-	PublickKey []byte //原始公钥
+	PrivateKey ecdsa.PrivateKey //1.私钥
+	PublickKey []byte           //2.公钥  原始公钥
+}
+
+/*
+	创建新的钱包
+ */
+func NewWallet() *Wallet {
+	privateKey, publicKey := newKeyPair()
+
+	return &Wallet{privateKey, publicKey}
 }
 
 //产生一对密钥
@@ -48,15 +55,6 @@ func newKeyPair() (ecdsa.PrivateKey, []byte) {
 
 	return *privateKey, publicKey
 }
-
-func NewWallet() *Wallet {
-	privateKey, publicKey := newKeyPair()
-
-	return &Wallet{privateKey, publicKey}
-}
-
-const version = byte(0x00)
-const addressCheckSumLen = 4
 
 //根据公钥获取对应的地址
 func (w *Wallet) GetAddress() []byte {
@@ -126,5 +124,5 @@ func IsValidAddress(address []byte) bool {
 	//step3：versioned_payload，生成一次校验码
 	checkSumBytes2 := CheckSum(version_payload)
 	//step4：比较checkSumBytes，checkSumBytes2
-	return  bytes.Compare(checkSumBytes, checkSumBytes2) == 0
+	return bytes.Compare(checkSumBytes, checkSumBytes2) == 0
 }

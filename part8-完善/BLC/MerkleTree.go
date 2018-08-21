@@ -4,17 +4,22 @@ import (
 	"crypto/sha256"
 )
 
+//默克尔树节点
 type MerkleNode struct {
-	LeftNode  *MerkleNode
-	RightNode *MerkleNode
-	DataHash  []byte
+	LeftNode  *MerkleNode //左子节点
+	RightNode *MerkleNode //右子节点
+	DataHash  []byte      //hash
 }
 
+//默克尔树
 type MerkleTree struct {
 	RootNode *MerkleNode
 }
 
-func NewMerkleNode(lelfNode , rightNode *MerkleNode, txHash []byte) *MerkleNode  {
+/*
+	创建新的merkle节点
+ */
+func NewMerkleNode(lelfNode, rightNode *MerkleNode, txHash []byte) *MerkleNode {
 	node := &MerkleNode{}
 
 	var hash [32]byte
@@ -36,17 +41,20 @@ func NewMerkleNode(lelfNode , rightNode *MerkleNode, txHash []byte) *MerkleNode 
 
 }
 
-func NewMerkleTree(txHashData [][]byte) *MerkleTree  {
+/*
+	创建MerkleTree
+ */
+func NewMerkleTree(txHashData [][]byte) *MerkleTree {
 	//保存每层merkle Tree 节点 当节点数为1时, 跳出循环
 	var nodes []*MerkleNode
 
 	//创建叶子节点
 	//当txHashData 为奇数 , 最后一个复制补全
-	if len(txHashData) % 2 != 0 {
+	if len(txHashData)%2 != 0 {
 		txHashData = append(txHashData, txHashData[len(txHashData)-1])
 	}
 
-	for _, txHash := range txHashData{
+	for _, txHash := range txHashData {
 		node := NewMerkleNode(nil, nil, txHash)
 		nodes = append(nodes, node)
 	}
@@ -56,7 +64,7 @@ func NewMerkleTree(txHashData [][]byte) *MerkleTree  {
 		//每次循环新建一个newNodes 保存此层node的数组
 		var newNodes []*MerkleNode
 
-		for i := 0 ; i < len(nodes); i += 2 {
+		for i := 0; i < len(nodes); i += 2 {
 			node := &MerkleNode{nodes[i], nodes[i+1], nil}
 			newNodes = append(newNodes, node)
 		}

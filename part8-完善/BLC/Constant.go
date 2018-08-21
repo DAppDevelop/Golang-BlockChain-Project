@@ -18,3 +18,7 @@ const COMMAND_GETBLOCKS = "getblocks"
 const COMMAND_INV = "inv"
 const COMMAND_GETDATA = "getdata"
 const COMMAND_BLOCKDATA = "blockdata"
+
+//钱包
+const version = byte(0x00)
+const addressCheckSumLen = 4

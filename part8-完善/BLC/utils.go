@@ -56,6 +56,19 @@ func gobEncode(data interface{}) []byte {
 	return buff.Bytes()
 }
 
+//对象序列化(包含接口)
+func gobEncodeWithRegister(data interface{}, inter interface{}) []byte {
+	var buff bytes.Buffer
+	gob.Register(inter)
+	encoder := gob.NewEncoder(&buff)
+	err := encoder.Encode(data)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return buff.Bytes()
+}
+
 // 反序列化：将字节数组反序列化为block对象
 func gobDecode(blockBytes []byte, o interface{}) {
 	decoder := gob.NewDecoder(bytes.NewReader(blockBytes))

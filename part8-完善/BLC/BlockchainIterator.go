@@ -6,11 +6,15 @@ import (
 )
 
 type BlockchainIterator struct {
-	currentHash []byte
-	DB *bolt.DB
+	currentHash []byte   //当前hash
+	DB          *bolt.DB //数据库
 }
 
-func (blockchainIterator *BlockchainIterator)Next() *Block  {
+/*
+	根据当前迭代器currentHash从数据库中查找对应的block,
+	之后将迭代器的currentHash置为前一个区块hash.
+ */
+func (blockchainIterator *BlockchainIterator) Next() *Block {
 	var block Block
 
 	err := blockchainIterator.DB.View(func(tx *bolt.Tx) error {

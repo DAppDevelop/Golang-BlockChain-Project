@@ -17,6 +17,7 @@ type Block struct {
 	Nonce         int64          //6. Nonce
 }
 
+
 func NewBlock(txs []*Transaction, height int64, preBlockHash []byte) *Block {
 	block := &Block{height, preBlockHash, txs, time.Now().Unix(), nil, 0}
 
@@ -39,17 +40,7 @@ func CreateGenesisBlock(txs []*Transaction) *Block {
 
 // 需要将Txs里面每个tx.TxID拼接后hash, 转换成[]byte(256)
 func (block *Block) HashTransactions() []byte {
-	//var txHashes [][]byte
-	//	//var txHash [32]byte
-	//	//
-	//	//for _, tx := range block.Txs {
-	//	//	txHashes = append(txHashes, tx.TxID)
-	//	//}
-	//	//txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
-	//	//
-	//	//return txHash[:]
-
-	//将txs的hash序列号为[]byte,并放进一个数组里面
+	//将txs的hash序列化为[]byte,并放进一个数组里面
 	var txs [][]byte
 	for _,tx := range block.Txs {
 		txBytes := gobEncode(tx)
@@ -61,7 +52,7 @@ func (block *Block) HashTransactions() []byte {
 	return merkleTree.RootNode.DataHash
 }
 
-//// 反序列化：将字节数组反序列化为block对象
+// 反序列化：将字节数组反序列化为block对象
 func DeserializeBlock(blockBytes []byte) *Block {
 
 	var block Block

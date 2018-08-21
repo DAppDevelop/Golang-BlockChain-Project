@@ -7,6 +7,9 @@ import (
 	"io/ioutil"
 )
 
+/*
+	启动服务器
+ */
 func startServer(nodeID string, mineAddress string) {
 	//拼接nodeID到ip后
 	nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
@@ -42,6 +45,9 @@ func startServer(nodeID string, mineAddress string) {
 	}
 }
 
+/*
+	处理请求结果
+ */
 func handleConnection(conn net.Conn, bc *Blockchain) {
 	request, err := ioutil.ReadAll(conn)
 	if err != nil {

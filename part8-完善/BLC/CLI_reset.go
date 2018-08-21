@@ -2,7 +2,7 @@ package BLC
 
 import "os"
 
-func (cli *CLI) printchain(nodeID string) {
+func (cli *CLI)Reset(nodeID string)  {
 	blockchain := BlockchainObject(nodeID)
 	defer blockchain.DB.Close()
 
@@ -10,5 +10,6 @@ func (cli *CLI) printchain(nodeID string) {
 		os.Exit(1)
 	}
 
-	blockchain.Printchain()
+	utxoSet := &UTXOSet{blockchain}
+	utxoSet.ResetUTXOSet()
 }
