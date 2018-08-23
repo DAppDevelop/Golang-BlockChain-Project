@@ -65,7 +65,7 @@ func NewMerkleTree(txHashData [][]byte) *MerkleTree {
 		var newNodes []*MerkleNode
 
 		for i := 0; i < len(nodes); i += 2 {
-			node := &MerkleNode{nodes[i], nodes[i+1], nil}
+			node := NewMerkleNode(nodes[i], nodes[i+1], nil)
 			newNodes = append(newNodes, node)
 		}
 

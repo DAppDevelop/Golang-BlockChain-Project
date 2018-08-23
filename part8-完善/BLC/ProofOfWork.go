@@ -33,6 +33,7 @@ func (pow *ProofOfWork) Run() ([]byte, int64) {
 
 	for {
 		//1. 将Block的属性拼接成字节数组作为sha256.Sum256的入参
+
 		dataBytes := pow.prepareData(nonce) //dataBytes: [0 236 13 245 113 215 137 23 133 76 99 94 16 55 225 90 27 38 95 20 208 152 90 94 108 160 129 122 109 233 150 78 99 104 101 110 121 115 104 0 0 0 0 91 104 0 80 0 0 0 0 0 0 0 8 0 0 0 0 0 0 1 77 0 0 0 0 0 0 0 3]
 
 		//2. 生成hash
@@ -65,6 +66,7 @@ func (pow *ProofOfWork) Run() ([]byte, int64) {
 // 数据拼接，返回字节数组
 func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	//bytes.Join 以sep为连接符，拼接[][]byte
+	//提取这个地方的数据, 只改变nonce,其他不用重新运算
 	data := bytes.Join([][]byte{ //[]byte的切片
 		pow.Block.PrevBlockHash,
 		pow.Block.HashTransactions(),
