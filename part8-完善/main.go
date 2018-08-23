@@ -9,12 +9,10 @@ import (
 )
 
 func main() {
-	////创建命令行对象
-	//for {
-		go signalListen()
-		cli := BLC.CLI{}
-		cli.Run()
-	//}
+	//创建命令行对象
+	//go signalListen()
+	cli := BLC.CLI{}
+	cli.Run()
 
 }
 
@@ -25,7 +23,7 @@ func signalListen() {
 
 	go func(stringC chan string) {
 		for {
-			i := <- stringC
+			i := <-stringC
 			switch i {
 			case "Philip\n", "Ivo\n", "Chris\n":
 				fmt.Printf("Welcome %s\n", i)
@@ -35,7 +33,7 @@ func signalListen() {
 		}
 	}(stringC)
 
-	for  {
+	for {
 		input, err := inputReader.ReadString('\n')
 		if err != nil {
 			log.Fatal(err)
