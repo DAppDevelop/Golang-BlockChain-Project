@@ -1,11 +1,11 @@
 package main
 
 import (
-	"go-BlockChain/part8-完善/BLC"
 	"os"
 	"fmt"
 	"bufio"
 	"log"
+	"blockchain/part8-完善/BLC"
 )
 
 func main() {

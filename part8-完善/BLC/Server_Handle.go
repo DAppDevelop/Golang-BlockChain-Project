@@ -147,6 +147,7 @@ func handleGetBlockData(request []byte, bc *Blockchain) {
 	if len(blockArray) == 0 {
 		utxoSet := UTXOSet{bc}
 		utxoSet.ResetUTXOSet()
+
 	}
 
 	if len(blockArray) > 0 {
@@ -206,16 +207,21 @@ func handleRequireMine(request []byte, bc *Blockchain)  {
 	}
 	txp.saveFile(nodeID)
 
+	const packageNum  = 1
+
 	//2. 判断交易池是否有足够的交易
 	if len(txp.Txs) > 0 {
 		//开始挖矿
 		fmt.Println("开始挖矿")
 
 		blockchain := BlockchainObject(nodeID)
-		//defer blockchain.DB.Close()
-		newBlock := blockchain.MineNewBlock(txp.Txs)
-		//fmt.Println(newBlock)
 
+		//取出要打包的交易
+		packageTx := txp.Txs[:packageNum]
+		newBlock := blockchain.MineNewBlock(packageTx)
+		//fmt.Println(newBlock)
+		txp.Txs = txp.Txs[packageNum:]
+		txp.saveFile(nodeID)
 		//发送newBlock 给主节点验证工作量证明
 		sendNewBlockToMain(knowNodes[0], newBlock)
 	}
@@ -235,7 +241,11 @@ func handleVerifyBlock(request []byte, blockchain *Blockchain)  {
 		log.Panic(err)
 	}
 
+	fmt.Println("handleVerifyBlock")
 	blockchain.SaveNewBlockToBlockchain(block)
 	utxoSet := &UTXOSet{blockchain}
 	utxoSet.Update()
+
+	//这里直接调起一次version命令  更新挖矿节点的区块
+	sendVersion(knowNodes[1], blockchain)
 }
