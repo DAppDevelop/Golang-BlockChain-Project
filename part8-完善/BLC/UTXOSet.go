@@ -17,8 +17,19 @@ type UTXOSet struct {
 	查询block块中所有的未花费utxo：执行FindUnspentUTXOMap--->map
  */
 func (utxoset *UTXOSet) ResetUTXOSet() {
+	//blockchain.FindUnspentUTXOMap 涉及到数据库, 现在要放在下面打开数据库的命令之前.不然卡死
+	utxoMap := utxoset.blockChain.FindUnspentUTXOMap()
 
-	err := utxoset.blockChain.DB.Update(func(tx *bolt.Tx) error {
+	DBName := fmt.Sprintf(DBName, os.Getenv("NODE_ID"))
+	fmt.Println(DBName)
+	db, err := bolt.Open(DBName, 0600, nil)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer db.Close()
+
+
+	err = db.Update(func(tx *bolt.Tx) error {
 		//1.utxoset表存在，删除
 		b := tx.Bucket([]byte(UTXOSetBucketName))
 		if b != nil {
@@ -34,14 +45,6 @@ func (utxoset *UTXOSet) ResetUTXOSet() {
 		}
 
 		if b != nil {
-			utxoMap := utxoset.blockChain.FindUnspentUTXOMap()
-
-			//for txid, outputs := range utxoMap {
-			//	fmt.Printf("txID :%s", txid)
-			//	for _, utxo := range outputs.UTXOs {
-			//		fmt.Println(utxo)
-			//	}
-			//}
 
 			for txIDStr, outs := range utxoMap {
 				txID, _ := hex.DecodeString(txIDStr)
@@ -78,8 +81,15 @@ func (utxoSet *UTXOSet) GetBalance(address string) int64 {
 func (utxoSet *UTXOSet) FindUnspentUTXOsByAddress(address string) []*UTXO {
 	var utxos []*UTXO
 
+	DBName := fmt.Sprintf(DBName, os.Getenv("NODE_ID"))
+	db, err := bolt.Open(DBName, 0600, nil)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer db.Close()
+
 	//读数据库
-	err := utxoSet.blockChain.DB.View(func(tx *bolt.Tx) error {
+	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(UTXOSetBucketName))
 		if b != nil {
 			//遍历UTXOSetBucketName 表
@@ -117,6 +127,10 @@ func (utxoSet *UTXOSet) FindSpentableUTXOs(from string, amount int64, txs []*Tra
 
 	//未打包的UTXO
 	unPacketUTXO := utxoSet.FindUnpacketUTXO(from, txs)
+	for utxo := range  unPacketUTXO {
+		fmt.Println("FindUnpacketUTXO")
+		fmt.Println(utxo)
+	}
 
 	for _, utxo := range unPacketUTXO {
 		total += utxo.Output.Value
@@ -222,7 +236,14 @@ func (utxoSet *UTXOSet) Update() {
 	//}
 
 	//获取utxo表,将input对应的utxo删除, 添加outsMap中的utxo
-	err := utxoSet.blockChain.DB.Update(func(tx *bolt.Tx) error {
+	DBName := fmt.Sprintf(DBName, os.Getenv("NODE_ID"))
+	db, err := bolt.Open(DBName, 0600, nil)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer db.Close()
+
+	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(UTXOSetBucketName))
 		if b != nil {
 			//1.删除inputs对应的utxo

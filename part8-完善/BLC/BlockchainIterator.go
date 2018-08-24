@@ -3,6 +3,8 @@ package BLC
 import (
 	"github.com/boltdb/bolt"
 	"log"
+	"fmt"
+	"os"
 )
 
 type BlockchainIterator struct {
@@ -16,8 +18,14 @@ type BlockchainIterator struct {
  */
 func (blockchainIterator *BlockchainIterator) Next() *Block {
 	var block Block
+	DBName := fmt.Sprintf(DBName, os.Getenv("NODE_ID"))
+	db, err := bolt.Open(DBName, 0600, nil)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer db.Close()
 
-	err := blockchainIterator.DB.View(func(tx *bolt.Tx) error {
+	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 			//获取当期迭代器对应的block

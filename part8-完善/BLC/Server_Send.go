@@ -88,6 +88,10 @@ func sendTransactionToMiner(to string, txs []*Transaction)  {
 	sendCommandData(COMMAND_REQUIREMINE, txs, to)
 }
 
+func sendNewBlockToMain(to string, block *Block) {
+	sendCommandData(COMMAND_VERIFYBLOCK, block, to)
+}
+
 
 
 func sendCommandData(command string, data interface{}, to string)  {

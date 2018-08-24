@@ -22,6 +22,7 @@ const COMMAND_GETDATA = "getdata"
 const COMMAND_BLOCKDATA = "blockdata"
 const COMMAND_TXS = "transactions"
 const COMMAND_REQUIREMINE = "requiremine"
+const COMMAND_VERIFYBLOCK  = "verifyblock"
 
 //钱包
 const version = byte(0x00)

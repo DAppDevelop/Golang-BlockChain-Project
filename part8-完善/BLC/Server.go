@@ -25,7 +25,7 @@ func startServer(nodeID string, mineAddress string) {
 	defer listener.Close()
 
 	bc := BlockchainObject(nodeID)
-	defer bc.DB.Close()
+	//defer bc.DB.Close()
 
 	//判断是否为主节点, 非主节点的节点需要向主节点发送Version消息
 	//fmt.Println(nodeAddress, knowNodes[0])
@@ -75,6 +75,8 @@ func handleConnection(conn net.Conn, bc *Blockchain) {
 		handleTransactions(request, bc)
 	case COMMAND_REQUIREMINE:
 		handleRequireMine(request, bc)
+	case COMMAND_VERIFYBLOCK:
+		handleVerifyBlock(request, bc)
 	default:
 		fmt.Println("无法识别....")
 	}

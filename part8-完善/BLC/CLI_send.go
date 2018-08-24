@@ -23,7 +23,7 @@ func (cli *CLI) send(from []string, to []string, amount []string, nodeID string,
 	 */
 
 	blockchain := BlockchainObject(nodeID)
-	defer blockchain.DB.Close()
+	//defer blockchain.DB.Close()
 
 	if blockchain == nil {
 		os.Exit(1)
@@ -41,7 +41,7 @@ func (cli *CLI) send(from []string, to []string, amount []string, nodeID string,
 		//拼接nodeID到ip后
 		nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
 		txs := blockchain.hanldeTransations(from, to, amount, nodeID)
-		fmt.Println(nodeAddress)
+		//fmt.Println(nodeAddress)
 		if nodeAddress != knowNodes[0] {
 			//非主节点的交易先发送给主节点
 			fmt.Println("sendTransactionToMainNode")
@@ -71,12 +71,12 @@ func (cli *CLI) send(from []string, to []string, amount []string, nodeID string,
 	主节点转账: 初始  1XtLrwjcCnaBfE3Hwuypzchnsz7PKQLxnDyfba67cBkmXG1XYa: 10
 
 	go run main.go send -from '["1XtLrwjcCnaBfE3Hwuypzchnsz7PKQLxnDyfba67cBkmXG1XYa"]' -to '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x"]' -amount '["1"]' -mine f
+	go run main.go send -from '["1XtLrwjcCnaBfE3Hwuypzchnsz7PKQLxnDyfba67cBkmXG1XYa","1XtLrwjcCnaBfE3Hwuypzchnsz7PKQLxnDyfba67cBkmXG1XYa"]' -to '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x","121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x"]' -amount '["2","1"]'
 
 
 
 
-
-	go run main.go send -from '["1RAbXZJVTYvPfdrXRd274vjrBE6XWxeyMLSxNYZixsuT7Uetrc"]' -to '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x"]' -amount '["1"]' -mine f
+	go run main.go send -from '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x"]' -to '["1RAbXZJVTYvPfdrXRd274vjrBE6XWxeyMLSxNYZixsuT7Uetrc"]' -amount '["1"]' -mine f
 
 
 

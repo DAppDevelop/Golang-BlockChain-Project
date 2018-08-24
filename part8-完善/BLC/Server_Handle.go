@@ -197,24 +197,45 @@ func handleRequireMine(request []byte, bc *Blockchain)  {
 		log.Panic(err)
 	}
 
-
 	nodeID := os.Getenv("NODE_ID")
 	txp := NewTXPool(nodeID)
 	//将txs保存到交易池
 	txp.Txs = append(txp.Txs, txs...)
-	//for _,tx :=range txp.Txs {
-	//	fmt.Println(tx)
-	//}
+	for _,tx :=range txp.Txs {
+		fmt.Println(tx)
+	}
 	txp.saveFile(nodeID)
 
 	//2. 判断交易池是否有足够的交易
-	if len(txp.Txs) > 2 {
+	if len(txp.Txs) > 0 {
 		//开始挖矿
 		fmt.Println("开始挖矿")
 
 		blockchain := BlockchainObject(nodeID)
-		defer blockchain.DB.Close()
-		newBlock := blockchain.MineNewBlock(txs)
-		fmt.Println(newBlock)
+		//defer blockchain.DB.Close()
+		newBlock := blockchain.MineNewBlock(txp.Txs)
+		//fmt.Println(newBlock)
+
+		//发送newBlock 给主节点验证工作量证明
+		sendNewBlockToMain(knowNodes[0], newBlock)
 	}
+}
+
+func handleVerifyBlock(request []byte, blockchain *Blockchain)  {
+	//1.从request中获取版本的数据：[]byte
+	commandBytes := request[COMMAND_LENGTH:]
+
+	//2.反序列化--->version
+	var block *Block
+
+	decoder := gob.NewDecoder(bytes.NewReader(commandBytes))
+
+	err := decoder.Decode(&block)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	blockchain.SaveNewBlockToBlockchain(block)
+	utxoSet := &UTXOSet{blockchain}
+	utxoSet.Update()
 }
