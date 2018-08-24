@@ -77,6 +77,19 @@ func sendBlock(to string, block *Block) {
 	sendCommandData(COMMAND_BLOCKDATA, blockData, to)
 }
 
+/*
+	发送交易信息到主节点
+ */
+func sendTransactionToMainNode(to string, txs []*Transaction)  {
+	sendCommandData(COMMAND_TXS, txs, to)
+}
+
+func sendTransactionToMiner(to string, txs []*Transaction)  {
+	sendCommandData(COMMAND_REQUIREMINE, txs, to)
+}
+
+
+
 func sendCommandData(command string, data interface{}, to string)  {
 	//2.对象序列化为[]byte
 	payload := gobEncode(data)
@@ -85,3 +98,5 @@ func sendCommandData(command string, data interface{}, to string)  {
 	//4.发送消息
 	sendData(to, request)
 }
+
+

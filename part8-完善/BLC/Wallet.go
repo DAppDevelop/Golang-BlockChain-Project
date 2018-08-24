@@ -67,15 +67,7 @@ func (w *Wallet) GetAddress() []byte {
 	//step1：得到公钥哈希
 	pubKeyHash := PubKeyHash(w.PublickKey)
 
-	//step2：添加版本号：
-	versioned_payload := append([]byte{version}, pubKeyHash...)
-
-	//step3：根据versioned_payload-->两次sha256,取前4位，得到checkSum
-	checkSumBytes := CheckSum(versioned_payload)
-	//step4：拼接全部数据
-	full_payload := append(versioned_payload, checkSumBytes...)
-	//step5：Base58编码
-	address := Base58Encode(full_payload)
+	address := PublicHashToAddress(pubKeyHash)
 
 	return address
 }
@@ -125,4 +117,19 @@ func IsValidAddress(address []byte) bool {
 	checkSumBytes2 := CheckSum(version_payload)
 	//step4：比较checkSumBytes，checkSumBytes2
 	return bytes.Compare(checkSumBytes, checkSumBytes2) == 0
+}
+
+
+func PublicHashToAddress(pubKeyHash []byte) []byte {
+
+	//step2：添加版本号：
+	versioned_payload := append([]byte{version}, pubKeyHash...)
+	//step3：根据versioned_payload-->两次sha256,取前4位，得到checkSum
+	checkSumBytes := CheckSum(versioned_payload)
+	//step4：拼接全部数据
+	full_payload := append(versioned_payload, checkSumBytes...)
+	//step5：Base58编码
+	address := Base58Encode(full_payload)
+
+	return address
 }

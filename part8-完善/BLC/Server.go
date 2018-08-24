@@ -11,6 +11,8 @@ import (
 	启动服务器
  */
 func startServer(nodeID string, mineAddress string) {
+	//设置coinbase
+	coinbaseAddress = mineAddress
 	//拼接nodeID到ip后
 	nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
 	//监听地址
@@ -26,7 +28,7 @@ func startServer(nodeID string, mineAddress string) {
 	defer bc.DB.Close()
 
 	//判断是否为主节点, 非主节点的节点需要向主节点发送Version消息
-	fmt.Println(nodeAddress, knowNodes[0])
+	//fmt.Println(nodeAddress, knowNodes[0])
 	if nodeAddress != knowNodes[0] {
 		//fmt.Println("sendVersion")
 		sendVersion(knowNodes[0], bc)
@@ -69,6 +71,10 @@ func handleConnection(conn net.Conn, bc *Blockchain) {
 		handleGetData(request, bc)
 	case COMMAND_BLOCKDATA:
 		handleGetBlockData(request, bc)
+	case COMMAND_TXS:
+		handleTransactions(request, bc)
+	case COMMAND_REQUIREMINE:
+		handleRequireMine(request, bc)
 	default:
 		fmt.Println("无法识别....")
 	}

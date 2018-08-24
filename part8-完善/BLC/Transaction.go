@@ -11,6 +11,7 @@ import (
 	"math/big"
 	"crypto/elliptic"
 	"time"
+	"os"
 )
 
 type Transaction struct {
@@ -35,6 +36,37 @@ func NewCoinbaseTransacion(address string) *Transaction {
 
 }
 
+/*
+	产生挖矿奖励交易Transaction  奖励为1
+ */
+func NewRewardTransacionYS() *Transaction {
+	//创建创世区块交易的Vin
+	txInput := &TXInput{[]byte{}, -1, nil, nil}
+	//创建创世区块交易的Vout
+	address := CoinbaseAddress(os.Getenv("NODE_ID"))
+	if address == "" {
+		//从钱包中取地址
+		wallets := NewWallets(os.Getenv("NODE_ID"))
+		for walletAddress, _ := range wallets.WalletMap {
+			address = walletAddress
+		}
+	}
+
+	if address== "" {
+		log.Panic("未定义coinbase地址, 无法执行后续操作")
+	}
+
+
+	txOutput := NewTxOutput(1, address)
+	//生产交易Transaction
+	txCoinBaseTransaction := &Transaction{[]byte{}, []*TXInput{txInput}, []*TXOutput{txOutput}}
+	//设置Transaction的TxHash
+	txCoinBaseTransaction.SetID()
+
+	return txCoinBaseTransaction
+
+}
+
 //2. 创建普通交易产生的Transaction
 func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet, txs []*Transaction, nodeID string) *Transaction {
 	//1.定义Input和Output的数组
@@ -48,6 +80,11 @@ func NewSimpleTransation(from string, to string, amount int64, utxoSet *UTXOSet,
 	//获取钱包的集合：
 	wallets := NewWallets(nodeID)
 	wallet := wallets.WalletMap[from]
+
+	//判断本地钱包是否包含发送方公私钥
+	if wallet == nil {
+		log.Panic("本地钱包没有发送地址存档")
+	}
 
 	//2.创建Input
 	for txID, indexArray := range spentableUTXO {
@@ -170,7 +207,6 @@ func (tx *Transaction) TrimmedCopy() *Transaction {
 
 }
 
-
 //将Transaction 序列化再进行 hash
 func (tx *Transaction) SetID() {
 
@@ -190,7 +226,6 @@ func (tx *Transaction) NewTxID() []byte {
 	return hash[:]
 }
 
-
 //验证交易
 /*
 验证的原理：
@@ -203,7 +238,7 @@ func (tx *Transaction) Verifity(prevTxs map[string]*Transaction) bool {
 	}
 
 	//判断当前input是否有对应的Transaction
-	for _, input := range tx.Vins {//
+	for _, input := range tx.Vins { //
 		if prevTxs[hex.EncodeToString(input.TxID)] == nil {
 			log.Panic("当前的input没有找到对应的Transaction，无法验证")
 		}

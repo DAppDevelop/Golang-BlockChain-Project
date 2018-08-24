@@ -44,11 +44,6 @@ func (pow *ProofOfWork) Run() ([]byte, int64) {
 		hashInt.SetBytes(hash[:])
 
 		//判断hashInt是否小于Block里面的target
-		// Cmp compares x and y and returns:
-		//
-		//   -1 if x <  y
-		//    0 if x == y
-		//   +1 if x >  y
 
 		//3. 判断hash有效性，如果满足条件，跳出循环
 		if pow.target.Cmp(&hashInt) == 1 {
@@ -62,6 +57,8 @@ func (pow *ProofOfWork) Run() ([]byte, int64) {
 
 	return hash[:], int64(nonce)
 }
+
+
 
 // 数据拼接，返回字节数组
 func (pow *ProofOfWork) prepareData(nonce int) []byte {

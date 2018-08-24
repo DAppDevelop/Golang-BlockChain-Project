@@ -4,6 +4,8 @@ import (
 	"encoding/gob"
 	"bytes"
 	"log"
+	"fmt"
+	"os"
 )
 
 /*
@@ -155,4 +157,64 @@ func handleGetBlockData(request []byte, bc *Blockchain) {
 
 }
 
+/*
+	主节点处理接收到的交易
+ */
+func handleTransactions(request []byte, bc *Blockchain)  {
+	//1.从request中获取版本的数据：[]byte
+	commandBytes := request[COMMAND_LENGTH:]
 
+	//2.反序列化--->version
+	var txs []*Transaction
+
+	decoder := gob.NewDecoder(bytes.NewReader(commandBytes))
+
+	err := decoder.Decode(&txs)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	//发送到挖矿节点
+	sendTransactionToMiner(knowNodes[1], txs)
+
+	//for _, tx := range txs {
+	//	//fmt.Println("处理获取到的txs")
+	//	//fmt.Println(tx)
+	//}
+}
+
+func handleRequireMine(request []byte, bc *Blockchain)  {
+	//1.从request中获取版本的数据：[]byte
+	commandBytes := request[COMMAND_LENGTH:]
+
+	//2.反序列化--->version
+	var txs []*Transaction
+
+	decoder := gob.NewDecoder(bytes.NewReader(commandBytes))
+
+	err := decoder.Decode(&txs)
+	if err != nil {
+		log.Panic(err)
+	}
+
+
+	nodeID := os.Getenv("NODE_ID")
+	txp := NewTXPool(nodeID)
+	//将txs保存到交易池
+	txp.Txs = append(txp.Txs, txs...)
+	//for _,tx :=range txp.Txs {
+	//	fmt.Println(tx)
+	//}
+	txp.saveFile(nodeID)
+
+	//2. 判断交易池是否有足够的交易
+	if len(txp.Txs) > 2 {
+		//开始挖矿
+		fmt.Println("开始挖矿")
+
+		blockchain := BlockchainObject(nodeID)
+		defer blockchain.DB.Close()
+		newBlock := blockchain.MineNewBlock(txs)
+		fmt.Println(newBlock)
+	}
+}

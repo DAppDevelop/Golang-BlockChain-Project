@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-BlockChain/part7-Network/BLC"
+	"go-BlockChain/part8-完善/BLC"
 	"os"
 	"fmt"
 	"bufio"

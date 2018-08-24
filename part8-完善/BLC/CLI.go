@@ -33,11 +33,13 @@ func (cli *CLI) Run() {
 	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
 	resetCmd := flag.NewFlagSet("reset", flag.ExitOnError)
 	startNodeCmd := flag.NewFlagSet("startnode", flag.ExitOnError)
+	setCoinbaseCmd := flag.NewFlagSet("coinbase", flag.ExitOnError)
 
 	//2.----------设置命令后的参数对象
 	flagFrom := sendCmd.String("from", "", "转账源地址")
 	flagTo := sendCmd.String("to", "", "转账目的地址")
 	flagAmount := sendCmd.String("amount", "", "转账金额")
+	flagMine := sendCmd.String("mine", "", "本地挖矿")
 
 	//createblockchainCmd 创世区块地址
 	flagCoinbase := createblockchainCmd.String("address", "", "创世区块数据的地址")
@@ -46,6 +48,8 @@ func (cli *CLI) Run() {
 	flagGetbalanceWithAddress := getBalanceCmd.String("address", "", "要查询余额的账户.......")
 
 	flagStartNodeWithMiner := startNodeCmd.String("miner", "", "挖矿奖励的地址")
+
+	flagSetCoinbaseWithAddress := setCoinbaseCmd.String("address", "", "挖矿奖励地址")
 
 	//3.----------解析参数
 	switch os.Args[1] {
@@ -81,6 +85,10 @@ func (cli *CLI) Run() {
 		if err := startNodeCmd.Parse(os.Args[2:]); err != nil {
 			log.Panic(err)
 		}
+	case "coinbase":
+		if err := setCoinbaseCmd.Parse(os.Args[2:]); err != nil {
+			log.Panic(err)
+		}
 
 	default:
 		printUsage()
@@ -98,7 +106,11 @@ func (cli *CLI) Run() {
 		from := JSONToArray(*flagFrom)
 		to := JSONToArray(*flagTo)
 		amount := JSONToArray(*flagAmount)
-		cli.send(from, to, amount, nodeID)
+		mine := true
+		if *flagMine == "false" || *flagMine == "f" {
+			mine = false
+		}
+		cli.send(from, to, amount, nodeID, mine)
 	}
 
 	if createblockchainCmd.Parsed() {
@@ -141,6 +153,9 @@ func (cli *CLI) Run() {
 		cli.startNode(nodeID, *flagStartNodeWithMiner)
 	}
 
+	if setCoinbaseCmd.Parsed() {
+		cli.setCoinbase(nodeID, *flagSetCoinbaseWithAddress)
+	}
 }
 
 /*

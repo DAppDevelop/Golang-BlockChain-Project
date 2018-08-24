@@ -6,6 +6,7 @@ const BlockBucketName = "blocks" //定义bucket
 const targetBit = 8              // 挖矿难度(256位Hash里面前面至少要有16个零)
 const UTXOSetBucketName = "utxoset"
 const walletsFile = "Wallets_%s.dat"//存储钱包数据的本地文件名
+const txPollFile = "TxsPool_%s.dat"//本地交易池
 
 //网络相关
 const NODE_VERSION = 1    //版本
@@ -19,6 +20,8 @@ const COMMAND_GETBLOCKS = "getblocks"
 const COMMAND_INV = "inv"
 const COMMAND_GETDATA = "getdata"
 const COMMAND_BLOCKDATA = "blockdata"
+const COMMAND_TXS = "transactions"
+const COMMAND_REQUIREMINE = "requiremine"
 
 //钱包
 const version = byte(0x00)

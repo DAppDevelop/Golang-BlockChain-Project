@@ -78,25 +78,34 @@ func CreateBlockchainWithGenesisBlock(address string, nodeID string) {
 
 }
 
-// 挖矿产生区块
-func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []string, nodeID string) {
-	/*
-	1.新建交易
-	2.新建区块：
-		读取数据库，获取最后一块block
-	3.存入到数据库中
-	 */
-
-	//1. 根据from/to/amount 通过相关算法建立Transaction数组
+/*
+	处理交易命令数据, 输出对应的transactions
+ */
+func (blockchain *Blockchain)hanldeTransations(from []string, to []string, amount []string, nodeId string) []*Transaction {
 	var txs []*Transaction
 	utxoSet := &UTXOSet{blockchain}
+
 	for i := 0; i < len(from); i++ {
 		//转换amount为int
 		amountInt, _ := strconv.Atoi(amount[i])
-		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), utxoSet, txs, nodeID)
+		tx := NewSimpleTransation(from[i], to[i], int64(amountInt), utxoSet, txs, nodeId)
 		//fmt.Println(tx)
 		txs = append(txs, tx)
 	}
+
+	return txs
+}
+
+
+// 挖矿产生区块
+func (blockchain *Blockchain) MineNewBlock(originalTxs []*Transaction) *Block {
+	/*
+	奖励：reward：
+	创建一个CoinBase交易--->Tx
+	 */
+	coinBaseTransaction := NewRewardTransacionYS()
+	txs := []*Transaction{coinBaseTransaction}
+	txs = append(txs, originalTxs...)
 
 	//交易的验证：
 	for _, tx := range txs {
@@ -105,13 +114,6 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 		}
 
 	}
-
-	/*
-	奖励：reward：
-	创建一个CoinBase交易--->Tx
-	 */
-	coinBaseTransaction := NewCoinbaseTransacion(from[0])
-	txs = append(txs, coinBaseTransaction)
 
 	//获取最新的block
 	var block Block
@@ -134,9 +136,14 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 
 	//2. 根据数据库最新的block的信息,建立新的区块
 	newBlock := NewBlock(txs, block.Height+1, block.Hash)
-	println(newBlock)
+	//println(newBlock)
+
+	return newBlock
+}
+
+func (blockchain *Blockchain)SaveNewBlockToBlockchain(newBlock *Block)  {
 	//将新区块存储到数据库
-	err = blockchain.DB.Update(func(tx *bolt.Tx) error {
+	err := blockchain.DB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BlockBucketName))
 		if b != nil {
 
@@ -154,45 +161,6 @@ func (blockchain *Blockchain) MineNewBlock(from []string, to []string, amount []
 		log.Panic(err)
 	}
 }
-
-// 增加区块到区块链里面
-//func (blc *Blockchain) AddBlockToBlockchain(txs []*Transaction) {
-//
-//	err := blc.DB.Update(func(tx *bolt.Tx) error {
-//		b := tx.Bucket([]byte(BlockBucketName))
-//
-//		if b != nil {
-//			//取到最新区块
-//			blockbyte := b.Get(blc.Tip)
-//
-//			block := DeserializeBlock(blockbyte)
-//
-//			// 创建新区块
-//			newBlock := NewBlock(txs, block.Height+1, block.Hash)
-//
-//			//序列号block并存入数据库
-//			err := b.Put(newBlock.Hash, newBlock.Serialize())
-//
-//			if err != nil {
-//				log.Panic(err)
-//			}
-//
-//			//更新数据库最新区块hash
-//			err = b.Put([]byte("l"), []byte(newBlock.Hash))
-//
-//			if err != nil {
-//				log.Panic(err)
-//			}
-//		}
-//
-//		return nil
-//	})
-//
-//	if err != nil {
-//		log.Panic(err)
-//	}
-//
-//}
 
 //设计一个方法，用于获取指定用户的所有的未花费Txoutput
 /*
