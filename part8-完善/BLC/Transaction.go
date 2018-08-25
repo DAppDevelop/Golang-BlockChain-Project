@@ -221,8 +221,12 @@ func (tx *Transaction) SetID() {
 
 func (tx *Transaction) NewTxID() []byte {
 	txCopy := tx
-	//txCopy.TxID = []byte{}
-	hash := sha256.Sum256(gobEncode(txCopy))
+	txCopy.TxID = []byte{}
+	//fmt.Println("NewTxID--------------------------")
+	//fmt.Println(txCopy)
+	txBytes := gobEncode(txCopy)
+	//fmt.Printf("txBytes:%x", txBytes)
+	hash := sha256.Sum256(txBytes)
 	return hash[:]
 }
 
@@ -232,6 +236,11 @@ func (tx *Transaction) NewTxID() []byte {
 公钥 + 要签名的数据 验证 签名：rs
  */
 func (tx *Transaction) Verifity(prevTxs map[string]*Transaction) bool {
+	//1.判断当前tx是否时coinbase交易
+	if tx.IsCoinBaseTransaction() {
+		return true
+	}
+
 	//判断当前input是否有对应的Transaction
 	for _, input := range tx.Vins { //
 		if prevTxs[hex.EncodeToString(input.TxID)] == nil {

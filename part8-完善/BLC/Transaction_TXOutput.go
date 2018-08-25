@@ -37,4 +37,5 @@ func (tx *TXOutput) Lock(address string){
 //格式化输出
 func (tx *TXOutput) String() string {
 	return fmt.Sprintf("\n\t\t\tValue: %d, PubKeyHash(转成地址显示): %s", tx.Value, PublicHashToAddress(tx.PubKeyHash))
+	//return fmt.Sprintf("\n\t\t\tValue: %d, PubKeyHash: %x", tx.Value, tx.PubKeyHash)
 }

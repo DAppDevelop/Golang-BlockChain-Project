@@ -161,7 +161,7 @@ func handleGetBlockData(request []byte, bc *Blockchain) {
 /*
 	主节点处理接收到的交易
  */
-func handleTransactions(request []byte, bc *Blockchain)  {
+func handleTransactions(request []byte, bc *Blockchain) {
 	//1.从request中获取版本的数据：[]byte
 	commandBytes := request[COMMAND_LENGTH:]
 
@@ -184,9 +184,12 @@ func handleTransactions(request []byte, bc *Blockchain)  {
 	//}
 }
 
-func handleRequireMine(request []byte, bc *Blockchain)  {
+func handleRequireMine(request []byte, bc *Blockchain) {
 	//1.从request中获取版本的数据：[]byte
 	commandBytes := request[COMMAND_LENGTH:]
+	//fmt.Println("反序列化得到的txbytes：")
+	//fmt.Printf("%x",commandBytes)
+	//fmt.Println("-----")
 
 	//2.反序列化--->version
 	var txs []*Transaction
@@ -198,16 +201,18 @@ func handleRequireMine(request []byte, bc *Blockchain)  {
 		log.Panic(err)
 	}
 
+	//fmt.Printf("%x",gobEncode(txs))
+
 	nodeID := os.Getenv("NODE_ID")
 	txp := NewTXPool(nodeID)
 	//将txs保存到交易池
 	txp.Txs = append(txp.Txs, txs...)
-	for _,tx :=range txp.Txs {
-		fmt.Println(tx)
-	}
+	//for _, tx := range txp.Txs {
+	//	fmt.Println(tx)
+	//}
 	txp.saveFile(nodeID)
 
-	const packageNum  = 1
+	const packageNum = 1
 
 	//2. 判断交易池是否有足够的交易
 	if len(txp.Txs) > 0 {
@@ -217,8 +222,8 @@ func handleRequireMine(request []byte, bc *Blockchain)  {
 		blockchain := BlockchainObject(nodeID)
 
 		//取出要打包的交易
-		packageTx := txp.Txs[:packageNum]
-		newBlock := blockchain.MineNewBlock(packageTx)
+		//packageTx := txp.Txs[:packageNum]
+		newBlock := blockchain.MineNewBlock(txs)
 		//fmt.Println(newBlock)
 		txp.Txs = txp.Txs[packageNum:]
 		txp.saveFile(nodeID)
@@ -227,7 +232,7 @@ func handleRequireMine(request []byte, bc *Blockchain)  {
 	}
 }
 
-func handleVerifyBlock(request []byte, blockchain *Blockchain)  {
+func handleVerifyBlock(request []byte, blockchain *Blockchain) {
 	//1.从request中获取版本的数据：[]byte
 	commandBytes := request[COMMAND_LENGTH:]
 
@@ -241,11 +246,14 @@ func handleVerifyBlock(request []byte, blockchain *Blockchain)  {
 		log.Panic(err)
 	}
 
-	fmt.Println("handleVerifyBlock")
-	blockchain.SaveNewBlockToBlockchain(block)
-	utxoSet := &UTXOSet{blockchain}
-	utxoSet.Update()
+	pow := NewProofOfWork(block)
+	if pow.IsValid() {
+		blockchain.SaveNewBlockToBlockchain(block)
+		utxoSet := &UTXOSet{blockchain}
+		utxoSet.Update()
 
-	//这里直接调起一次version命令  更新挖矿节点的区块
-	sendVersion(knowNodes[1], blockchain)
+		//这里直接调起一次version命令  更新挖矿节点的区块
+		sendVersion(knowNodes[1], blockchain)
+	}
+
 }

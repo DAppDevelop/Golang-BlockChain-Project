@@ -490,8 +490,8 @@ func (bc *Blockchain) VerifityTransaction(tx *Transaction, txs []*Transaction) b
 	}
 
 	//验证
-	//return tx.Verifity(prevTxs)
-	return true
+	return tx.Verifity(prevTxs)
+	//return true
 }
 
 /*
