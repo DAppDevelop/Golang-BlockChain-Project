@@ -77,6 +77,7 @@ func (cli *CLI) send(from []string, to []string, amount []string, nodeID string,
 
 
 	go run main.go send -from '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x"]' -to '["1RAbXZJVTYvPfdrXRd274vjrBE6XWxeyMLSxNYZixsuT7Uetrc"]' -amount '["1"]' -mine f
+	go run main.go send -from '["121whDSbqnDBCRUo6M47QnPz4aJLEAYpJMdp7KrenXiGKYBdh5x","1RAbXZJVTYvPfdrXRd274vjrBE6XWxeyMLSxNYZixsuT7Uetrc"]' -to '["1RAbXZJVTYvPfdrXRd274vjrBE6XWxeyMLSxNYZixsuT7Uetrc","1XtLrwjcCnaBfE3Hwuypzchnsz7PKQLxnDyfba67cBkmXG1XYa"]' -amount '["2","1"]'
 
 
 

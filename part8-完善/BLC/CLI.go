@@ -166,11 +166,12 @@ func printUsage() {
 	fmt.Println("\tcreatewallet -- 创建钱包")
 	fmt.Println("\tgetaddresslists -- 获取所有的钱包地址")
 	fmt.Println("\tcreate -address --创世区块交易数据.")
-	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT --转账交易")
+	fmt.Println("\tsend -from FROM -to TO -amount AMOUNT -mine true/false  --转账交易")
 	fmt.Println("\tprint --输出区块信息.")
 	fmt.Println("\tgetbalance -address --获取address的余额.")
 	fmt.Println("\treset --重置UTXOSet.")
-	fmt.Println("\tstartnode -miner Address -- 启动节点，并指定挖矿的奖励地址")
+	fmt.Println("\tstartnode --启动节点")
+	fmt.Println("\tcoinbase -address --设置挖矿奖励地址")
 }
 
 /*
